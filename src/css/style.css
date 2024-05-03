@@ -1,0 +1,12 @@
+.member-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .card {
+    width: 50%; 
+    margin: 0 auto;
+  }
