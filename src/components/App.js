@@ -21,6 +21,7 @@ function App() {
                     <Route path="/login" element={<ConnectionController />} />
                     <Route path="/validate" element={<ValidateAccount />} />
                     <Route path="/password" element={<Password />} />
+                    <Route path="/planning" element={<Planning />} />
                 </Routes>
             </Router>
         </AuthProvider>
