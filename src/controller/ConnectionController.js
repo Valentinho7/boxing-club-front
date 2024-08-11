@@ -32,7 +32,7 @@ const ConnexionController = () => {
             password: password
         };
     
-        fetch('http://localhost:8081/api/login', {
+        fetch('http://34.30.198.59:8081/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

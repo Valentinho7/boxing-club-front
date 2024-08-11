@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext'; // Assurez-vous que le chemin d'importation est correct
 import RegisterController from '../controller/RegisterController';
+import Planning from '../controller/PlanningController';
 import UpdateController from '../controller/MemberDetailsController';
 import ConnectionController from '../controller/ConnectionController';
 import ValidateAccount from '../controller/ValidateAccount';
