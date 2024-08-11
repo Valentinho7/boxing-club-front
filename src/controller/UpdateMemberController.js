@@ -6,7 +6,7 @@ function UpdateForm({ user, onUserUpdate }) {
   const handleSubmit = async (values, { setSubmitting }) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.put('http://localhost:8081/api/member/update', values, {
+      await axios.put('http://34.30.198.59:8081/api/member/update', values, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onUserUpdate(values);

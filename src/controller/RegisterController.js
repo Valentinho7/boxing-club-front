@@ -20,7 +20,7 @@ function RegisterController() {
 
 
     const register = (values) => {
-        fetch('http://localhost:8081/api/member/register', {
+        fetch('http://34.30.198.59:8081/api/member/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
