@@ -15,6 +15,7 @@
     "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
+    "demo-reactjs-base": "file:",
     "formik": "^2.4.6",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",

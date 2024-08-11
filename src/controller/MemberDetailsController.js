@@ -9,7 +9,7 @@ function MemberDetails() {
   useEffect(() => {
     const token = localStorage.getItem('token');
   
-    fetch('http://localhost:8081/api/member/memberDetails', {
+    fetch('http://34.30.198.59:8081/api/member/memberDetails', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

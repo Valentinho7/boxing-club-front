@@ -10,7 +10,7 @@ const ValidateAccount = () => {
 
         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
 
-        fetch('http://localhost:8081/api/member/validatePaymentAndSubscription', {
+        fetch('http://34.30.198.59:8081/api/member/validatePaymentAndSubscription', {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`

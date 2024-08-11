@@ -16,7 +16,7 @@ function ChangePasswordForm() {
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post('http://localhost:8081/api/member/changePassword', values, {
+      const response = await axios.post('http://34.30.198.59:8081/api/member/changePassword', values, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.status === 200) {
