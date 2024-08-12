@@ -8,7 +8,7 @@ const DisplaySessionType = () => {
   const [addingNew, setAddingNew] = useState(false);
   const [newSessionTypeName, setNewSessionTypeName] = useState('');
 
-  useEffect(() => {
+  const fetchSessionTypes = () => {
     const token = localStorage.getItem('token');
     if (token) {
       axios.get('http://34.30.198.59:8081/api/sessions/types', {
@@ -23,22 +23,32 @@ const DisplaySessionType = () => {
     } else {
       console.error('No token found in localStorage');
     }
+  };
+
+  useEffect(() => {
+    fetchSessionTypes();
   }, []);
 
   const handleAddSaveClick = () => {
+    if (!newSessionTypeName.trim()) {
+      console.error('Session type name cannot be empty');
+      return;
+    }
+
     const token = localStorage.getItem('token');
     if (token) {
       axios.post('http://34.30.198.59:8081/api/sessions/types', { name: newSessionTypeName }, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
+          console.log('Server response:', response); // Log the full server response
           const newSessionType = response.data;
+          if (!newSessionType || !newSessionType.name) {
+            console.error('Invalid session type received from server');
+            return;
+          }
           console.log('New session type added:', newSessionType); // Debugging line
-          setSessionTypes(prevSessionTypes => {
-            const updatedSessionTypes = [...prevSessionTypes, newSessionType];
-            console.log('Updated session types:', updatedSessionTypes); // Debugging line
-            return updatedSessionTypes;
-          });
+          fetchSessionTypes(); // Fetch the updated list of session types
           setAddingNew(false);
           setNewSessionTypeName('');
         })
@@ -76,7 +86,7 @@ const DisplaySessionType = () => {
                     className="btn btn-secondary"
                     onClick={() => setAddingNew(false)}
                   >
-                    Cancel
+                    Annuler
                   </button>
                 </>
               ) : (
@@ -94,7 +104,39 @@ const DisplaySessionType = () => {
           <div className="col-md-4" key={index}>
             <div className="card mb-4">
               <div className="card-body">
-                <h5 className="card-title">{type.name}</h5>
+                {editingType === type.id ? (
+                  <>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      className="form-control mb-2"
+                      placeholder="Edit Session Type Name"
+                    />
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleSaveClick(type.id)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={handleCancelClick}
+                    >
+                      Annuler
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <h5 className="card-title">{type.name}</h5>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleEditClick(type)}
+                    >
+                      Modifier
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
