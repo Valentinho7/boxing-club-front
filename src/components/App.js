@@ -31,7 +31,7 @@ function App() {
                     <Route path="/planning" element={<Planning />} />
                     <Route path="/addSession" element={<AddSession />} />
                     <Route path="/registerAdmin" element={<RegisterAdmin />} />
-                    <Route path="/sessions/types" element={<DisplaySessionType />} />
+                    <Route path="/sessions/type" element={<DisplaySessionType />} />
                     <Route path="/sessions" element={<DisplaySession />} />
                 </Routes>
             </Router>
