@@ -5,7 +5,6 @@ import RegisterController from '../controller/RegisterController';
 import Planning from '../controller/PlanningController';
 import UpdateController from '../controller/MemberDetailsController';
 import ConnectionController from '../controller/ConnectionController';
-import Planning from '../controller/PlanningController';
 import ValidateAccount from '../controller/ValidateAccount';
 import Navbar from '../components/Navbar'; 
 import HomePage from '../components/HomePage'; 
