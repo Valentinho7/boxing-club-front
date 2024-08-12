@@ -64,7 +64,9 @@ const DisplaySessionType = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
-          setSessionTypes([...sessionTypes, response.data]);
+          // Assurez-vous que la réponse contient les données correctes
+          const newSessionType = response.data;
+          setSessionTypes([...sessionTypes, newSessionType]);
           setAddingNew(false);
           setNewSessionTypeName('');
         })
