@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -12,13 +12,13 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
   const [role, setRole] = useState('');
-  const history = useHistory(); // Utiliser useHistory pour la redirection
+  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setRole('');
-    history.push('/'); // Rediriger vers la page d'accueil
+    navigate('/'); // Rediriger vers la page d'accueil
   };
 
   useEffect(() => {
