@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from '../context/AuthContext'; // Assurez-vous que le chemin d'importation est correct
+import { AuthProvider } from '../context/AuthContext'; 
 import RegisterController from '../controller/RegisterController';
 import Planning from '../controller/PlanningController';
 import UpdateController from '../controller/MemberDetailsController';
@@ -9,6 +9,7 @@ import ValidateAccount from '../controller/ValidateAccount';
 import Navbar from '../components/Navbar'; 
 import HomePage from '../components/HomePage'; 
 import Password from '../controller/ChangePasswordController';
+import AdminPassword from '../controller/ChangePasswordControllerAdmin';
 import AddSession from '../controller/AddSessionController';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/login" element={<ConnectionController />} />
                     <Route path="/validate" element={<ValidateAccount />} />
                     <Route path="/password" element={<Password />} />
+                    <Route path="/admin" element={<AdminPassword />} />
                     <Route path="/planning" element={<Planning />} />
                     <Route path="/addSession" element={<AddSession />} />
                 </Routes>

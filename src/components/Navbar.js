@@ -28,7 +28,7 @@ function Navbar() {
         if (role === 'Admin') {
             return (
                 <>
-                    <li><Link className="dropdown-item" to="/admin">Panneau d'administration</Link></li>
+                    <li><Link className="dropdown-item" to="/admin">Changer de mot de passe</Link></li>
                     <li><Link className="dropdown-item" to="/addSession">Ajouter une session</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                 </>
