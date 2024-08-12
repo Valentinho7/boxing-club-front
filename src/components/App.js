@@ -9,6 +9,7 @@ import ValidateAccount from '../controller/ValidateAccount';
 import Navbar from '../components/Navbar'; 
 import HomePage from '../components/HomePage'; 
 import Password from '../controller/ChangePasswordController';
+import AddSession from '../controller/AddSessionController';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/validate" element={<ValidateAccount />} />
                     <Route path="/password" element={<Password />} />
                     <Route path="/planning" element={<Planning />} />
+                    <Route path="/addSession" element={<AddSession />} />
                 </Routes>
             </Router>
         </AuthProvider>
