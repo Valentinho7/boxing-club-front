@@ -34,15 +34,20 @@ const DisplaySession = () => {
 
   const handleEditClick = (session) => {
     setEditingSession(session);
+    setNewSessionData(session);
+  };
+
+  const handleCancelClick = () => {
+    setEditingSession(null);
     setNewSessionData({
-      name: session.name,
-      durationInHours: session.durationInHours,
-      description: session.description,
-      nameSessionType: session.nameSessionType,
-      date: session.date,
-      hour: session.hour,
-      coachName: session.coachName,
-      maxPeople: session.maxPeople,
+      name: '',
+      durationInHours: 0,
+      description: '',
+      nameSessionType: '',
+      date: '',
+      hour: 0,
+      coachName: '',
+      maxPeople: 0,
     });
   };
 
@@ -53,7 +58,7 @@ const DisplaySession = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
-          setSessions(sessions.map(session => session.id === id ? { ...session, ...newSessionData } : session));
+          setSessions(sessions.map(session => session.id === id ? newSessionData : session));
           setEditingSession(null);
         })
         .catch(error => {
@@ -70,11 +75,11 @@ const DisplaySession = () => {
 
   return (
     <div className="container">
-      <h1>Sessions</h1>
+      <h1 style={{ textAlign: 'center' }}>Sessions</h1>
       <div className="row">
         {sessions.map((session, index) => (
-          <div className="col-md-4" key={index}>
-            <div className="card mb-4">
+          <div className="col-md-6" key={index}>
+            <div className="card mb-4" style={{ minHeight: '300px' }}>
               <div className="card-body">
                 {editingSession && editingSession.id === session.id ? (
                   <>
@@ -92,12 +97,12 @@ const DisplaySession = () => {
                       className="form-control mb-2"
                       placeholder="Duration in Hours"
                     />
-                    <input
-                      type="text"
+                    <textarea
                       value={newSessionData.description}
                       onChange={(e) => setNewSessionData({ ...newSessionData, description: e.target.value })}
                       className="form-control mb-2"
                       placeholder="Description"
+                      style={{ whiteSpace: 'pre-wrap' }}
                     />
                     <input
                       type="text"
@@ -140,17 +145,17 @@ const DisplaySession = () => {
                     >
                       Save
                     </button>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={handleCancelClick}
+                    >
+                      Annuler
+                    </button>
                   </>
                 ) : (
                   <>
                     <h5 className="card-title">{session.name}</h5>
-                    <p className="card-text">Duration: {session.durationInHours} hours</p>
-                    <p className="card-text">Description: {session.description}</p>
-                    <p className="card-text">Type: {session.nameSessionType}</p>
-                    <p className="card-text">Date: {session.date}</p>
-                    <p className="card-text">Hour: {session.hour}</p>
-                    <p className="card-text">Coach: {session.coachName}</p>
-                    <p className="card-text">Max People: {session.maxPeople}</p>
+                    <p className="card-text">{session.description}</p>
                     <button
                       className="btn btn-primary"
                       onClick={() => handleEditClick(session)}
