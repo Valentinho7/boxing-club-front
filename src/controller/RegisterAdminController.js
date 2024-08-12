@@ -12,7 +12,7 @@ function RegisterAdminController() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    const register = (values) => {
+    const register = (values, { resetForm }) => {
         const token = localStorage.getItem('token');
         fetch('http://34.30.198.59:8081/api/admin/register', {
             method: 'POST',
@@ -35,6 +35,7 @@ function RegisterAdminController() {
                 // Handle success
                 setErrorMessage(null);
                 setSuccessMessage('Admin registered successfully.');
+                resetForm(); // Reset the form after successful submission
             } else {
                 // Handle error
                 const errorMessage = typeof data === 'object' ? JSON.stringify(data) : text;
