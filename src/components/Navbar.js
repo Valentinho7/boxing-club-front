@@ -31,6 +31,8 @@ function Navbar() {
                     <li><Link className="dropdown-item" to="/admin">Changer de mot de passe</Link></li>
                     <li><Link className="dropdown-item" to="/registerAdmin">Ajouter un admin</Link></li>
                     <li><Link className="dropdown-item" to="/addSession">Ajouter une session</Link></li>
+                    <li><Link className="dropdown-item" to="/sessionTypes">Liste des types de sessions</Link></li>
+                    <li><Link className="dropdown-item" to="/sessions">Liste des sessions</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                 </>
             );

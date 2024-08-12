@@ -12,6 +12,8 @@ import Password from '../controller/ChangePasswordController';
 import AdminPassword from '../controller/ChangePasswordControllerAdmin';
 import AddSession from '../controller/AddSessionController';
 import RegisterAdmin from '../controller/RegisterAdminController';
+import DisplaySessionType from '../controller/DisplaySessionType.js';
+import DisplaySession from '../controller/DisplaySession.js';
 
 function App() {
     return (
@@ -29,6 +31,8 @@ function App() {
                     <Route path="/planning" element={<Planning />} />
                     <Route path="/addSession" element={<AddSession />} />
                     <Route path="/registerAdmin" element={<RegisterAdmin />} />
+                    <Route path="/sessionTypes" element={<DisplaySessionType />} />
+                    <Route path="/sessions" element={<DisplaySession />} />
                 </Routes>
             </Router>
         </AuthProvider>

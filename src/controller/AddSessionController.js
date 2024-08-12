@@ -3,8 +3,11 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-const AddSessionForm = () => {
+const AddSessionController = () => {
   const [sessionTypes, setSessionTypes] = useState([]);
+  const [showAddType, setShowAddType] = useState(false);
+  const [newSessionType, setNewSessionType] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -47,19 +50,50 @@ const AddSessionForm = () => {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const token = localStorage.getItem('token');
-    axios.post('http://34.30.198.59:8081/api/sessions', values, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    if (token) {
+      axios.post('http://34.30.198.59:8081/api/sessions', values, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(response => {
+          console.log('Session added successfully');
+          resetForm();
+        })
+        .catch(error => {
+          console.error('There was an error adding the session!', error);
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
+    } else {
+      console.error('No token found in localStorage');
+      setSubmitting(false);
+    }
+  };
+
+  const handleAddSessionType = () => {
+    if (sessionTypes.some(type => type.name.toLowerCase() === newSessionType.toLowerCase())) {
+      setErrorMessage('Ce type de session existe déjà.');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.post('http://34.30.198.59:8081/api/sessions/types', 
+        { name: newSessionType },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then(response => {
-        alert('Session added successfully');
-        resetForm();
+        setSessionTypes([...sessionTypes, { name: newSessionType }]);
+        setNewSessionType('');
+        setShowAddType(false);
+        setErrorMessage('');
       })
       .catch(error => {
-        alert('Error adding session');
-      })
-      .finally(() => {
-        setSubmitting(false);
+        console.error('There was an error adding the session type!', error);
       });
+    } else {
+      console.error('No token found in localStorage');
+    }
   };
 
   return (
@@ -69,7 +103,7 @@ const AddSessionForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ errors, touched, isSubmitting }) => (
+        {({ errors, touched }) => (
           <Form>
             <div className="mb-3">
               <label htmlFor="name">Name</label>
@@ -90,14 +124,39 @@ const AddSessionForm = () => {
               <label htmlFor="nameSessionType">Session Type</label>
               <Field as="select" name="nameSessionType" className={'form-control' + (errors.nameSessionType && touched.nameSessionType ? ' is-invalid' : '')}>
                 <option value="">Select a session type</option>
-                {sessionTypes.map((type) => (
-                  <option key={type.id} value={type.name}>
-                    {type.name}
-                  </option>
+                {sessionTypes.map((type, index) => (
+                  <option key={index} value={type.name}>{type.name}</option>
                 ))}
               </Field>
               <ErrorMessage name="nameSessionType" component="div" className="invalid-feedback" />
             </div>
+            <div className="mb-3">
+              <span 
+                style={{ color: 'blue', cursor: 'pointer' }} 
+                onClick={() => setShowAddType(!showAddType)}
+              >
+                + Ajouter un type de session
+              </span>
+            </div>
+            {showAddType && (
+              <div className="mb-3">
+                <input 
+                  type="text" 
+                  value={newSessionType} 
+                  onChange={(e) => setNewSessionType(e.target.value)} 
+                  className="form-control" 
+                  placeholder="Nom du type de session" 
+                />
+                <button 
+                  type="button" 
+                  className="btn btn-primary mt-2" 
+                  onClick={handleAddSessionType}
+                >
+                  Ajouter
+                </button>
+                {errorMessage && <div className="text-danger mt-2">{errorMessage}</div>}
+              </div>
+            )}
             <div className="mb-3">
               <label htmlFor="date">Date</label>
               <Field name="date" type="date" className={'form-control' + (errors.date && touched.date ? ' is-invalid' : '')} />
@@ -119,7 +178,7 @@ const AddSessionForm = () => {
               <ErrorMessage name="maxPeople" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Add Session</button>
+              <button type="submit" className="btn btn-primary">Add Session</button>
             </div>
           </Form>
         )}
@@ -128,4 +187,4 @@ const AddSessionForm = () => {
   );
 };
 
-export default AddSessionForm;
+export default AddSessionController;
