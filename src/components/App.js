@@ -11,6 +11,7 @@ import HomePage from '../components/HomePage';
 import Password from '../controller/ChangePasswordController';
 import AdminPassword from '../controller/ChangePasswordControllerAdmin';
 import AddSession from '../controller/AddSessionController';
+import RegisterAdmin from '../controller/RegisterAdminController';
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/admin" element={<AdminPassword />} />
                     <Route path="/planning" element={<Planning />} />
                     <Route path="/addSession" element={<AddSession />} />
+                    <Route path="/registerAdmin" element={<RegisterAdmin />} />
                 </Routes>
             </Router>
         </AuthProvider>
