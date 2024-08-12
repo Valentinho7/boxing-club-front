@@ -42,13 +42,17 @@ const DisplaySessionType = () => {
       })
         .then(response => {
           console.log('Server response:', response); // Log the full server response
-          const newSessionType = response.data;
+          const newSessionType = response.data ? JSON.parse(response.data) : { name: newSessionTypeName };
           if (!newSessionType || !newSessionType.name) {
             console.error('Invalid session type received from server');
             return;
           }
           console.log('New session type added:', newSessionType); // Debugging line
-          fetchSessionTypes(); // Fetch the updated list of session types
+          setSessionTypes(prevSessionTypes => {
+            const updatedSessionTypes = [...prevSessionTypes, newSessionType];
+            console.log('Updated session types:', updatedSessionTypes); // Debugging line
+            return updatedSessionTypes;
+          });
           setAddingNew(false);
           setNewSessionTypeName('');
         })
@@ -58,6 +62,35 @@ const DisplaySessionType = () => {
     } else {
       console.error('No token found in localStorage');
     }
+  };
+
+  const handleEditClick = (type) => {
+    setEditingType(type.id);
+    setNewName(type.name);
+  };
+
+  const handleSaveClick = (id) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.put(`http://34.30.198.59:8081/api/sessions/types/${id}`, { name: newName }, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(response => {
+          fetchSessionTypes();
+          setEditingType(null);
+          setNewName('');
+        })
+        .catch(error => {
+          console.error('There was an error updating the session type!', error);
+        });
+    } else {
+      console.error('No token found in localStorage');
+    }
+  };
+
+  const handleCancelClick = () => {
+    setEditingType(null);
+    setNewName('');
   };
 
   return (
