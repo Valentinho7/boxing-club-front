@@ -43,7 +43,7 @@ const AddSessionForm = () => {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const token = localStorage.getItem('token');
-    axios.post('http://34.30.198.59:8081/api/session/add', values, {
+    axios.post('http://34.30.198.59:8081/api/sessions', values, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(response => {
