@@ -11,7 +11,6 @@ const validationSchema = Yup.object().shape({
 function RegisterAdminController() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const navigate = useNavigate();
 
     const register = (values) => {
         const token = localStorage.getItem('token');
@@ -35,10 +34,7 @@ function RegisterAdminController() {
             if (ok) {
                 // Handle success
                 setErrorMessage(null);
-                setSuccessMessage('Admin registered successfully. Redirecting to login page...');
-                setTimeout(() => {
-                    navigate('/login');
-                }, 5000); // Redirect to login page after 5 seconds
+                setSuccessMessage('Admin registered successfully.');
             } else {
                 // Handle error
                 const errorMessage = typeof data === 'object' ? JSON.stringify(data) : text;
