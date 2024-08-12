@@ -1,33 +1,26 @@
-import React, { useState, useEffect, createContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
-  login: () => {},
+  setIsAuthenticated: () => {},
   logout: () => {},
-  role: '',
-  setRole: () => {},
+  role: '', 
+  setRole: () => {}, 
 });
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-  const [role, setRole] = useState('');
-  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
+  const [role, setRole] = useState(''); // Ajoutez un état pour le rôle
+
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setRole('');
-    navigate('/'); // Rediriger vers la page d'accueil
   };
 
   useEffect(() => {
     let timeout;
-
-    function resetTimer() {
-      clearTimeout(timeout);
-      startTimer();
-    }
 
     function startTimer() {
       // Déconnecter l'utilisateur après 10 minutes d'inactivité
@@ -36,17 +29,26 @@ export const AuthProvider = ({ children }) => {
       }, 10 * 60 * 1000);
     }
 
+    function resetTimer() {
+      // Si l'utilisateur fait quelque chose, réinitialiser le délai
+      clearTimeout(timeout);
+      startTimer();
+    }
+
+    // Démarrer le délai lorsque la page est chargée
     startTimer();
 
+    // Réinitialiser le délai chaque fois que l'utilisateur fait quelque chose
+    window.addEventListener('load', resetTimer);
     window.addEventListener('mousemove', resetTimer);
     window.addEventListener('mousedown', resetTimer);
     window.addEventListener('click', resetTimer);
     window.addEventListener('scroll', resetTimer);
     window.addEventListener('keypress', resetTimer);
 
-    // Nettoyer les écouteurs d'événements lorsque le composant est démonté
+    // N'oubliez pas de nettoyer l'écouteur d'événements lorsque le composant est démonté
     return () => {
-      clearTimeout(timeout);
+      window.removeEventListener('load', resetTimer);
       window.removeEventListener('mousemove', resetTimer);
       window.removeEventListener('mousedown', resetTimer);
       window.removeEventListener('click', resetTimer);
@@ -56,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout, role, setRole }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout,role, setRole, }}>
       {children}
     </AuthContext.Provider>
   );
