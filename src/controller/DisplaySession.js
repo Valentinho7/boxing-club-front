@@ -58,7 +58,7 @@ const DisplaySession = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
-          setSessions(sessions.map(session => session.id === id ? newSessionData : session));
+          setSessions(sessions.map(session => session.id === id ? { ...session, ...newSessionData } : session));
           setEditingSession(null);
         })
         .catch(error => {
