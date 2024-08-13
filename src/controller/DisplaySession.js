@@ -3,20 +3,31 @@ import axios from 'axios';
 
 const DisplaySession = () => {
   const [sessions, setSessions] = useState([]);
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get('http://34.30.198.59:8081/api/sessions')
-      .then(response => {
-        setSessions(response.data);
+    if (token) {
+      axios.get('http://34.30.198.59:8081/api/sessions', {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch(error => {
-        console.error('There was an error fetching the sessions!', error);
-      });
-  }, []);
+        .then(response => {
+          setSessions(response.data);
+        })
+        .catch(error => {
+          setError('There was an error fetching the sessions!');
+          console.error(error);
+        });
+    } else {
+      setError('No token found in localStorage');
+      console.error('No token found in localStorage');
+    }
+  }, [token]);
 
   return (
     <div className="container">
       <h1 style={{ textAlign: 'center' }}>Sessions</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <ul>
         {sessions.map(session => (
           <li key={session.id}>
@@ -26,8 +37,6 @@ const DisplaySession = () => {
             <p>Date: {session.date}</p>
             <p>Hour: {session.hour}</p>
             <p>Coach: {session.coachName}</p>
-            <p>Max People: {session.maxPeople}</p>
-            <p>Description: {session.description}</p>
           </li>
         ))}
       </ul>
