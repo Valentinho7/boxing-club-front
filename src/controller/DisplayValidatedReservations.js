@@ -8,7 +8,7 @@ const DisplayValidatedReservations = () => {
         const fetchValidatedReservations = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://34.30.198.59:8081/api/validated', {
+                const response = await axios.get('http://34.30.198.59:8081/api/reservations/validated', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setReservations(response.data);
