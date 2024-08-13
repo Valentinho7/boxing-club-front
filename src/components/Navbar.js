@@ -56,6 +56,9 @@ function Navbar() {
             );
         }
 
+        return null;
+    };
+
     const renderSessionDropdownItems = () => {
         if (role === 'Admin') {
             return (
