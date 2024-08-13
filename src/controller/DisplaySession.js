@@ -73,5 +73,6 @@ const DisplaySession = () => {
       </ul>
     </div>
   );
+};
 
 export default DisplaySession;
