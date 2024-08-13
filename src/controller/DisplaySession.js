@@ -54,6 +54,7 @@ const DisplaySession = () => {
           return (
             <li key={session.id}>
               <h2>{session.name}</h2>
+              <p>ID: {session.id}</p>
               <p>Duration: {session.durationInHours} hours</p>
               <p>Description: {session.description}</p>
               <p>Type: {session.nameSessionType}</p> {/* Use the session type directly from the DTO */}
