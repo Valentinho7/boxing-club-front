@@ -41,18 +41,12 @@ const DisplaySessionType = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
-          console.log('Server response:', response); // Log the full server response
           const newSessionType = response.data ? JSON.parse(response.data) : { name: newSessionTypeName };
           if (!newSessionType || !newSessionType.name) {
             console.error('Invalid session type received from server');
             return;
           }
-          console.log('New session type added:', newSessionType); // Debugging line
-          setSessionTypes(prevSessionTypes => {
-            const updatedSessionTypes = [...prevSessionTypes, newSessionType];
-            console.log('Updated session types:', updatedSessionTypes); // Debugging line
-            return updatedSessionTypes;
-          });
+          setSessionTypes(prevSessionTypes => [...prevSessionTypes, newSessionType]);
           setAddingNew(false);
           setNewSessionTypeName('');
         })
@@ -91,6 +85,23 @@ const DisplaySessionType = () => {
   const handleCancelClick = () => {
     setEditingType(null);
     setNewName('');
+  };
+
+  const handleDeleteClick = (id) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.delete(`http://34.30.198.59:8081/api/sessions/types/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then(response => {
+          setSessionTypes(prevSessionTypes => prevSessionTypes.filter(type => type.id !== id));
+        })
+        .catch(error => {
+          console.error('There was an error deleting the session type!', error);
+        });
+    } else {
+      console.error('No token found in localStorage');
+    }
   };
 
   return (
@@ -163,10 +174,16 @@ const DisplaySessionType = () => {
                   <>
                     <h5 className="card-title">{type.name}</h5>
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary me-2"
                       onClick={() => handleEditClick(type)}
                     >
                       Modifier
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteClick(type.id)}
+                    >
+                      Supprimer
                     </button>
                   </>
                 )}

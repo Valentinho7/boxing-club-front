@@ -100,7 +100,6 @@ const DisplaySession = () => {
               ) : (
                 <div>
                   <h2>{session.name}</h2>
-                  <p>ID: {session.id}</p>
                   <p>Duration: {session.durationInHours} hours</p>
                   <p>Description: {session.description}</p>
                   <p>Type: {session.nameSessionType}</p>
