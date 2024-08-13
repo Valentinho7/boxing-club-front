@@ -116,6 +116,11 @@ function Navbar() {
                                         </li>
                                     </>
                                 )}
+                                {role === 'Member' && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/sessions/member">Réserver une séance</Link>
+                                    </li>
+                                )}
                             </>
                         )}
                     </ul>
