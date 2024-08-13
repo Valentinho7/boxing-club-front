@@ -40,6 +40,22 @@ function Navbar() {
         return null;
     };
 
+    const renderReservationsDropdownItems = () => {
+        if (role === 'Member') {
+            return (
+                <>
+                    <li><Link className="dropdown-item" to="/validatedReservations">Mes réservations</Link></li>
+                    <li><Link className="dropdown-item" to="/history">Mon historique des réservations</Link></li>
+                </>
+            );
+        }
+
+        if (role === 'Admin') {
+            return (
+                <li><Link className="dropdown-item" to="/reservations">Réservations</Link></li>
+            );
+        }
+
     const renderSessionDropdownItems = () => {
         if (role === 'Admin') {
             return (
@@ -94,6 +110,14 @@ function Navbar() {
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="accountDropdown">
                                         {renderAccountDropdownItems()}
+                                    </ul>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Réservations
+                                    </a>
+                                    <ul className="dropdown-menu" aria-labelledby="reservationsDropdown">
+                                        {renderReservationsDropdownItems()}
                                     </ul>
                                 </li>
                                 {role === 'Admin' && (
