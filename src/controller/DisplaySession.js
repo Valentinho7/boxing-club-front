@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DisplaySession = () => {
   const [sessions, setSessions] = useState([]);
@@ -60,6 +61,10 @@ const DisplaySession = () => {
     }
   };
 
+  const handleCancelClick = () => {
+    setEditingSession(null);
+  };
+
   const handleDeleteClick = async (id) => {
     try {
       await axios.delete(`http://34.30.198.59:8081/api/sessions/${id}`, {
@@ -73,23 +78,24 @@ const DisplaySession = () => {
 
   return (
     <div className="container">
-      <h1 style={{ textAlign: 'center' }}>Sessions</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <ul>
+      <h1 className="text-center">Sessions</h1>
+      {error && <p className="text-danger">{error}</p>}
+      <ul className="list-group">
         {Array.isArray(sessions) && sessions.length > 0 ? (
           sessions.map(session => (
-            <li key={session.id}>
+            <li key={session.id} className="list-group-item">
               {editingSession === session.id ? (
-                <div>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} />
-                  <input type="text" name="durationInHours" value={formData.durationInHours} onChange={handleChange} />
-                  <input type="text" name="description" value={formData.description} onChange={handleChange} />
-                  <input type="text" name="nameSessionType" value={formData.nameSessionType} onChange={handleChange} />
-                  <input type="text" name="date" value={formData.date} onChange={handleChange} />
-                  <input type="text" name="hour" value={formData.hour} onChange={handleChange} />
-                  <input type="text" name="coachName" value={formData.coachName} onChange={handleChange} />
-                  <input type="text" name="maxPeople" value={formData.maxPeople} onChange={handleChange} />
-                  <button className="btn btn-success" onClick={handleSaveClick}>Save</button>
+                <div className="form-group">
+                  <input type="text" className="form-control mb-2" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+                  <input type="text" className="form-control mb-2" name="durationInHours" value={formData.durationInHours} onChange={handleChange} placeholder="Duration in Hours" />
+                  <input type="text" className="form-control mb-2" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
+                  <input type="text" className="form-control mb-2" name="nameSessionType" value={formData.nameSessionType} onChange={handleChange} placeholder="Session Type" />
+                  <input type="text" className="form-control mb-2" name="date" value={formData.date} onChange={handleChange} placeholder="Date" />
+                  <input type="text" className="form-control mb-2" name="hour" value={formData.hour} onChange={handleChange} placeholder="Hour" />
+                  <input type="text" className="form-control mb-2" name="coachName" value={formData.coachName} onChange={handleChange} placeholder="Coach Name" />
+                  <input type="text" className="form-control mb-2" name="maxPeople" value={formData.maxPeople} onChange={handleChange} placeholder="Max People" />
+                  <button className="btn btn-success me-2" onClick={handleSaveClick}>Save</button>
+                  <button className="btn btn-secondary" onClick={handleCancelClick}>Cancel</button>
                 </div>
               ) : (
                 <div>
@@ -102,7 +108,7 @@ const DisplaySession = () => {
                   <p>Hour: {session.hour}H00</p>
                   <p>Coach: {session.coachName}</p>
                   <p>Max People: {session.maxPeople}</p>
-                  <button className="btn btn-danger" onClick={() => handleDeleteClick(session.id)}>Supprimer</button>
+                  <button className="btn btn-danger me-2" onClick={() => handleDeleteClick(session.id)}>Supprimer</button>
                   <button className="btn btn-primary" onClick={() => handleEditClick(session)}>Modifier</button>
                 </div>
               )}
