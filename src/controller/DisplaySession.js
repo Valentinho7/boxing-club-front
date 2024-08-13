@@ -13,6 +13,7 @@ const DisplaySession = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(response => {
+          console.log('Sessions data:', response.data); // Log the response data
           setSessions(response.data);
         })
         .catch(error => {
