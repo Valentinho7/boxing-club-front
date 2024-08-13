@@ -13,7 +13,18 @@ function Navbar() {
         navigate('/');
     };
 
-    const renderDropdownItems = () => {
+    const renderAccountDropdownItems = () => {
+        if (role === 'Admin') {
+            return (
+                <>
+                    <li><Link className="dropdown-item" to="/admin">Changer de mot de passe</Link></li>
+                    <li><Link className="dropdown-item" to="/registerAdmin">Ajouter un admin</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li><Link className="dropdown-item" to="/" onClick={handleLogout}>Déconnexion</Link></li>
+                </>
+            );
+        }
+
         if (role === 'Member') {
             return (
                 <>
@@ -21,19 +32,7 @@ function Navbar() {
                     <li><Link className="dropdown-item" to="/update">Mes informations</Link></li>
                     <li><Link className="dropdown-item" to="/password">Changer de mot de passe</Link></li>
                     <li><hr className="dropdown-divider" /></li>
-                </>
-            );
-        }
-
-        if (role === 'Admin') {
-            return (
-                <>
-                    <li><Link className="dropdown-item" to="/admin">Changer de mot de passe</Link></li>
-                    <li><Link className="dropdown-item" to="/registerAdmin">Ajouter un admin</Link></li>
-                    <li><Link className="dropdown-item" to="/addSession">Ajouter une session</Link></li>
-                    <li><Link className="dropdown-item" to="/sessions/type">Liste des types de sessions</Link></li>
-                    <li><Link className="dropdown-item" to="/sessions">Liste des sessions</Link></li>
-                    <li><hr className="dropdown-divider" /></li>
+                    <li><Link className="dropdown-item" to="/" onClick={handleLogout}>Déconnexion</Link></li>
                 </>
             );
         }
@@ -41,42 +40,76 @@ function Navbar() {
         return null;
     };
 
-    console.log('Role in Navbar:', role);
+    const renderSessionDropdownItems = () => {
+        if (role === 'Admin') {
+            return (
+                <>
+                    <li><Link className="dropdown-item" to="/addSession">Ajouter une session</Link></li>
+                    <li><Link className="dropdown-item" to="/sessions">Liste des sessions</Link></li>
+                </>
+            );
+        }
 
+        return null;
+    };
+
+    const renderSessionTypeDropdownItems = () => {
+        if (role === 'Admin') {
+            return (
+                <>
+                    <li><Link className="dropdown-item" to="/sessions/type">Liste des types de sessions</Link></li>
+                </>
+            );
+        }
+
+        return null;
+    };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">BOXING CLUB</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <Link className="navbar-brand" to="/">Boxing Club</Link>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarColor01">
-                    <ul className="navbar-nav me-auto">
-                        {!isAuthenticated ? (
-                            <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/register">S'inscrire</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/login">Se connecter</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/planning">Planning</Link>
-                                </li>
-                            </>
-                        ) : (
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav ms-auto">
+                        {isAuthenticated && (
                             <>
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mon compte
                                     </a>
-                                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            {renderDropdownItems()}
-            <li><button className="dropdown-item" onClick={handleLogout}>Se déconnecter</button></li>
-        </ul>
+                                    <ul className="dropdown-menu" aria-labelledby="accountDropdown">
+                                        {renderAccountDropdownItems()}
+                                    </ul>
                                 </li>
+                                {role === 'Admin' && (
+                                    <>
+                                        <li className="nav-item dropdown">
+                                            <a className="nav-link dropdown-toggle" href="#" id="sessionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Session
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="sessionDropdown">
+                                                {renderSessionDropdownItems()}
+                                            </ul>
+                                        </li>
+                                        <li className="nav-item dropdown">
+                                            <a className="nav-link dropdown-toggle" href="#" id="sessionTypeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Types de sessions
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="sessionTypeDropdown">
+                                                {renderSessionTypeDropdownItems()}
+                                            </ul>
+                                        </li>
+                                    </>
+                                )}
                             </>
+                        )}
+                        {!isAuthenticated && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login">Connexion</Link>
+                            </li>
                         )}
                     </ul>
                 </div>
