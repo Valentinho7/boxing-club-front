@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const DisplaySession = () => {
   const [sessions, setSessions] = useState([]);
-  const [editingSession, setEditingSession] = useState(null);
+  const [editingSessionId, setEditingSessionId] = useState(null);
   const [newSessionData, setNewSessionData] = useState({
     durationInHours: '',
     description: '',
@@ -11,7 +11,6 @@ const DisplaySession = () => {
     date: '',
     hour: ''
   });
-  const [addingNew, setAddingNew] = useState(false);
 
   const fetchSessions = () => {
     const token = localStorage.getItem('token');
@@ -34,39 +33,8 @@ const DisplaySession = () => {
     fetchSessions();
   }, []);
 
-  const handleAddSaveClick = () => {
-    const { durationInHours, description, nameSessionType, date, hour } = newSessionData;
-    if (!durationInHours.trim() || !description.trim() || !nameSessionType.trim() || !date.trim() || !hour.trim()) {
-      console.error('All fields must be filled');
-      return;
-    }
-
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.post('http://34.30.198.59:8081/api/sessions', newSessionData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then(response => {
-          setSessions(prevSessions => [...prevSessions, response.data]);
-          setAddingNew(false);
-          setNewSessionData({
-            durationInHours: '',
-            description: '',
-            nameSessionType: '',
-            date: '',
-            hour: ''
-          });
-        })
-        .catch(error => {
-          console.error('There was an error adding the session!', error);
-        });
-    } else {
-      console.error('No token found in localStorage');
-    }
-  };
-
   const handleEditClick = (session) => {
-    setEditingSession(session.id);
+    setEditingSessionId(session.id);
     setNewSessionData(session);
   };
 
@@ -78,7 +46,7 @@ const DisplaySession = () => {
       })
         .then(response => {
           fetchSessions();
-          setEditingSession(null);
+          setEditingSessionId(null);
           setNewSessionData({
             durationInHours: '',
             description: '',
@@ -96,7 +64,7 @@ const DisplaySession = () => {
   };
 
   const handleCancelClick = () => {
-    setEditingSession(null);
+    setEditingSessionId(null);
     setNewSessionData({
       durationInHours: '',
       description: '',
@@ -110,75 +78,11 @@ const DisplaySession = () => {
     <div className="container">
       <h1 style={{ textAlign: 'center' }}>Sessions</h1>
       <div className="row">
-        <div className="col-md-4">
-          <div className="card mb-4">
-            <div className="card-body">
-              {addingNew ? (
-                <>
-                  <input
-                    type="number"
-                    value={newSessionData.durationInHours}
-                    onChange={(e) => setNewSessionData({ ...newSessionData, durationInHours: e.target.value })}
-                    className="form-control mb-2"
-                    placeholder="Duration in Hours"
-                  />
-                  <textarea
-                    value={newSessionData.description}
-                    onChange={(e) => setNewSessionData({ ...newSessionData, description: e.target.value })}
-                    className="form-control mb-2"
-                    placeholder="Description"
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  />
-                  <input
-                    type="text"
-                    value={newSessionData.nameSessionType}
-                    onChange={(e) => setNewSessionData({ ...newSessionData, nameSessionType: e.target.value })}
-                    className="form-control mb-2"
-                    placeholder="Session Type"
-                  />
-                  <input
-                    type="date"
-                    value={newSessionData.date}
-                    onChange={(e) => setNewSessionData({ ...newSessionData, date: e.target.value })}
-                    className="form-control mb-2"
-                    placeholder="Date"
-                  />
-                  <input
-                    type="number"
-                    value={newSessionData.hour}
-                    onChange={(e) => setNewSessionData({ ...newSessionData, hour: e.target.value })}
-                    className="form-control mb-2"
-                    placeholder="Hour"
-                  />
-                  <button
-                    className="btn btn-success"
-                    onClick={handleAddSaveClick}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setAddingNew(false)}
-                  >
-                    Annuler
-                  </button>
-                </>
-              ) : (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setAddingNew(true)}
-                >
-                  Add
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
         {sessions.map((session, index) => (
           <div className="col-md-4" key={index}>
             <div className="card mb-4">
               <div className="card-body">
-                {editingSession === session.id ? (
+                {editingSessionId === session.id ? (
                   <>
                     <input
                       type="number"
