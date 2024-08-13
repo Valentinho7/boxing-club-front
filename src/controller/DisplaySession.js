@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const DisplaySession = () => {
   const [sessions, setSessions] = useState([]);
-  const [sessionTypes, setSessionTypes] = useState([]);
   const [error, setError] = useState(null);
   const token = localStorage.getItem('token');
 
@@ -20,27 +19,11 @@ const DisplaySession = () => {
           setError('There was an error fetching the sessions!');
           console.error(error);
         });
-
-      axios.get('http://34.30.198.59:8081/api/sessions/types', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then(response => {
-          setSessionTypes(response.data);
-        })
-        .catch(error => {
-          setError('There was an error fetching the session types!');
-          console.error(error);
-        });
     } else {
       setError('No token found in localStorage');
       console.error('No token found in localStorage');
     }
   }, [token]);
-
-  const getSessionTypeName = (typeId) => {
-    const type = sessionTypes.find(t => t.id === typeId);
-    return type ? type.name : 'Unknown';
-  };
 
   const handleDeleteClick = (id) => {
     console.log(`Deleting session with id: ${id}`); // Log the ID to verify it's correct
@@ -73,7 +56,7 @@ const DisplaySession = () => {
               <h2>{session.name}</h2>
               <p>Duration: {session.durationInHours} hours</p>
               <p>Description: {session.description}</p>
-              <p>Type: {getSessionTypeName(session.sessionTypeId)}</p>
+              <p>Type: {session.nameSessionType}</p> {/* Use the session type directly from the DTO */}
               <p>Date: {session.date}</p>
               <p>Hour: {session.hour}H00</p>
               <p>Coach: {session.coachName}</p>
