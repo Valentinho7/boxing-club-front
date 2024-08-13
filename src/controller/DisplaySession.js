@@ -42,6 +42,7 @@ const DisplaySession = () => {
   };
 
   const handleDeleteClick = (id) => {
+    console.log(`Deleting session with id: ${id}`); // Log the ID to verify it's correct
     if (token) {
       axios.delete(`http://34.30.198.59:8081/api/sessions/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
