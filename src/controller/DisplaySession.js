@@ -49,26 +49,29 @@ const DisplaySession = () => {
       <h1 style={{ textAlign: 'center' }}>Sessions</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <ul>
-        {sessions.map(session => {
-          console.log('Session details:', session); // Log each session's details
-          return (
-            <li key={session.id}>
-              <h2>{session.name}</h2>
-              <p>ID: {session.id}</p>
-              <p>Duration: {session.durationInHours} hours</p>
-              <p>Description: {session.description}</p>
-              <p>Type: {session.nameSessionType}</p> {/* Use the session type directly from the DTO */}
-              <p>Date: {session.date}</p>
-              <p>Hour: {session.hour}H00</p>
-              <p>Coach: {session.coachName}</p>
-              <p>Max People: {session.maxPeople}</p>
-              <button className="btn btn-danger" onClick={() => handleDeleteClick(session.id)}>Supprimer</button>
-            </li>
-          );
-        })}
+        {Array.isArray(sessions) && sessions.length > 0 ? (
+          sessions.map(session => {
+            console.log('Session details:', session); // Log each session's details
+            return (
+              <li key={session.id}>
+                <h2>{session.name}</h2>
+                <p>ID: {session.id}</p>
+                <p>Duration: {session.durationInHours} hours</p>
+                <p>Description: {session.description}</p>
+                <p>Type: {session.nameSessionType}</p> {/* Use the session type directly from the DTO */}
+                <p>Date: {session.date}</p>
+                <p>Hour: {session.hour}H00</p>
+                <p>Coach: {session.coachName}</p>
+                <p>Max People: {session.maxPeople}</p>
+                <button className="btn btn-danger" onClick={() => handleDeleteClick(session.id)}>Supprimer</button>
+              </li>
+            );
+          })
+        ) : (
+          <p>No sessions available.</p>
+        )}
       </ul>
     </div>
   );
-};
 
 export default DisplaySession;
