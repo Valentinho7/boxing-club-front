@@ -105,13 +105,11 @@ const DisplayMemberReservations = () => {
                         <p>Date de la commande: {reservation.orderDate}</p>
                         {reservation.validate && <p>Date de paiement: {reservation.validateDate}</p>}
                         {!reservation.validate && (
-                            <button 
-                                className="btn btn-success" 
-                                onClick={() => handlePayReservation(reservation.id)}
-                            >
-                                Payé ma réservation
-                            </button>
+                            <button className="btn btn-primary">Payer ma réservation</button>
                         )}
+                        <button className="btn btn-secondary" onClick={() => toggleSessions(reservation.id)}>
+                            {sessions[reservation.id] ? 'Masquer les sessions' : 'Afficher les sessions'}
+                        </button>
                         {sessions[reservation.id] && (
                             <ul>
                                 {sessions[reservation.id].map(session => (
