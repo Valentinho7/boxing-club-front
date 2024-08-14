@@ -35,7 +35,6 @@ const DisplayMemberReservations = () => {
             const response = await axios.get(`http://34.30.198.59:8081/api/reservations/${reservationId}/sessions`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(`Sessions for reservation ${reservationId}:`, response.data); // Log sessions
             setSessions(prevSessions => ({
                 ...prevSessions,
                 [reservationId]: response.data
@@ -56,7 +55,21 @@ const DisplayMemberReservations = () => {
         }
     };
 
+    const isSessionInFuture = (sessionDate) => {
+        const currentDate = new Date();
+        const sessionDateObj = new Date(sessionDate);
+        return sessionDateObj >= currentDate;
+    };
+
+    const isReservationValid = (reservationId) => {
+        const reservationSessions = sessions[reservationId] || [];
+        return reservationSessions.some(session => isSessionInFuture(session.date));
+    };
+
     const filteredReservations = reservations.filter(reservation => {
+        if (!isReservationValid(reservation.id)) {
+            return false;
+        }
         if (filter === 'paid') return reservation.validate;
         if (filter === 'unpaid') return !reservation.validate;
         return true; // 'all' filter
@@ -88,22 +101,16 @@ const DisplayMemberReservations = () => {
             <ul className="list-group">
                 {filteredReservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
-                        <h2 style={{ color: reservation.validate ? 'green' : 'red' }}>N° de réservation: {reservation.id}</h2>
-                        <p>Date de la commande: {reservation.orderedDate}</p>
+                        <h2 style={{ color: reservation.validate ? 'green' : 'black' }}>N° de réservation: {reservation.id}</h2>
+                        <p>Date de la commande: {reservation.orderDate}</p>
                         {reservation.validate && <p>Date de paiement: {reservation.validateDate}</p>}
-                        <button 
-                            className="btn btn-primary mr-2" 
-                            onClick={() => toggleSessions(reservation.id)}
-                        >
-                            {sessions[reservation.id] ? 'Cacher les séances' : 'Montrer les séances'}
-                        </button>
                         {!reservation.validate && (
-                        <button 
-                            className="btn btn-success" 
-                            onClick={() => handlePayReservation(reservation.id)}
-                        >
-                            Payé ma réservation
-                        </button>
+                            <button 
+                                className="btn btn-success" 
+                                onClick={() => handlePayReservation(reservation.id)}
+                            >
+                                Payé ma réservation
+                            </button>
                         )}
                         {sessions[reservation.id] && (
                             <ul>
