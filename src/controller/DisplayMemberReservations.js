@@ -67,7 +67,13 @@ const DisplayMemberReservations = () => {
         // Obtenir la date actuelle
         const currentDate = new Date();
         // Vérifier si toutes les sessions de la réservation ont une date passée
-        const allSessionsPassed = reservation.sessions.every(session => new Date(session.date) < currentDate);
+        let allSessionsPassed = true;
+        for (let session of reservation.sessions) {
+            if (new Date(session.date) >= currentDate) {
+                allSessionsPassed = false;
+                break;
+            }
+        }        
         // Inclure la réservation seulement si toutes les sessions ne sont pas passées
         return !allSessionsPassed;
     });
