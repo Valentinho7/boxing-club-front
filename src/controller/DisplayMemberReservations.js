@@ -5,6 +5,10 @@ const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
 
+    const handlePayReservation = (reservationId) => {
+        history.push(`/payment?reservationId=${reservationId}`);
+    };
+
     useEffect(() => {
         const fetchMemberReservations = async () => {
             try {
@@ -56,11 +60,17 @@ const DisplayMemberReservations = () => {
                     <li key={reservation.id} className="list-group-item">
                         <h2>N° de reservation: {reservation.id}</h2>
                         <p>Date de la commande: {reservation.orderedDate}</p>
-                        <button onClick={() => toggleSessions(reservation.id)}>
+                        <button 
+                            className="btn btn-primary mr-2" 
+                            onClick={() => toggleSessions(reservation.id)}
+                        >
                             {sessions[reservation.id] ? 'Hide Sessions' : 'Show Sessions'}
                         </button>
-                        <button onClick={() => handlePayReservation(reservation.id)}>
-                        Payé ma réservation
+                        <button 
+                            className="btn btn-success" 
+                            onClick={() => handlePayReservation(reservation.id)}
+                        >
+                            Payé ma réservation
                         </button>
                         {sessions[reservation.id] && (
                             <ul>
