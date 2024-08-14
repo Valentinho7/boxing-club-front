@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "react-credit-cards-2";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import SupportedCards from "./Cards";
 
@@ -13,7 +14,7 @@ import {
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
-export default class App extends React.Component {
+class PaymentForm extends React.Component {
   state = {
     number: "",
     name: "",
@@ -169,7 +170,16 @@ export default class App extends React.Component {
           <hr style={{ margin: "30px 0" }} />
           <SupportedCards />
         </div>
+        {this.state.successMessage && <div className="success-message">{this.state.successMessage}</div>}
+        {this.state.errorMessage && <div className="error-message">{this.state.errorMessage}</div>}
       </div>
     );
   }
 }
+
+const PaymentFormWithNavigate = (props) => {
+    const navigate = useNavigate();
+    return <PaymentForm {...props} navigate={navigate} />;
+  };
+  
+  export default PaymentFormWithNavigate;
