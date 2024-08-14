@@ -47,22 +47,33 @@ export default class App extends React.Component {
     this.setState({ [target.name]: target.value });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { issuer } = this.state;
-    const formData = [...e.target.elements]
-      .filter(d => d.name)
-      .reduce((acc, d) => {
-        acc[d.name] = d.value;
-        return acc;
-      }, {});
+  handlePaymentValidation = async (event) => {
+    event.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    const reservationId = urlParams.get('reservationId');
   
-    this.setState({ formData }, () => {
-      alert("Paiement validé");
-      setTimeout(() => {
-        window.location.href = '/';
-      }, 5000);
-    });
+    if (reservationId) {
+      try {
+        const response = await fetch(`/api/reservations/${reservationId}/validate`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`, // Ajouter le token aux en-têtes
+            'Content-Type': 'application/json'
+          }
+        });
+  
+        if (response.ok) {
+          alert('Réservation validée avec succès');
+        } else {
+          alert('Erreur lors de la validation de la réservation');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur lors de la validation de la réservation');
+      }
+    } else {
+      alert('Aucun ID de réservation trouvé');
+    }
   };
 
   render() {
@@ -131,8 +142,7 @@ export default class App extends React.Component {
             </div>
             <input type="hidden" name="issuer" value={issuer} />
             <div className="form-actions">
-              <button className="btn btn-primary btn-block">Valider le paiement</button>
-            </div>
+            <button className="btn btn-primary btn-block" onClick={this.handlePaymentValidation}>Valider le paiement</button>            </div>
           </form>
           {formData && (
             <div className="App-highlight">
