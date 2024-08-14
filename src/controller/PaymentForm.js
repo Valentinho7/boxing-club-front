@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "react-credit-cards-2";
+import axios from 'axios';
 
 import SupportedCards from "./Cards";
 
@@ -51,18 +52,15 @@ export default class App extends React.Component {
     event.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
     const reservationId = urlParams.get('reservationId');
+    const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage
   
     if (reservationId) {
       try {
-        const response = await fetch(`/api/reservations/${reservationId}/validate`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${token}`, // Ajouter le token aux en-têtes
-            'Content-Type': 'application/json'
-          }
+        const response = await axios.put(`http://34.30.198.59:8081/api/reservations/${reservationId}/validate`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
         });
   
-        if (response.ok) {
+        if (response.status === 200) {
           alert('Réservation validée avec succès');
         } else {
           alert('Erreur lors de la validation de la réservation');
