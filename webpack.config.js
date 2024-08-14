@@ -1,5 +1,5 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -17,6 +17,11 @@ module.exports = {
     }),
   ],
   resolve: {
+    alias: {
+      'process/browser': require.resolve('process/browser'),
+      'react-dom': path.resolve('./node_modules/react-dom'),
+      'framer-motion': path.resolve('./node_modules/framer-motion'),
+    },
     modules: [__dirname, "src", "node_modules"],
     extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
     fallback: { 
@@ -33,16 +38,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: require.resolve("babel-loader"),
+        use: {
+          loader: 'babel-loader',
+        },
       },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.png|svg|jpg|gif$/,
-        use: ["file-loader"],
-      }, 
     ],
   },
 };
