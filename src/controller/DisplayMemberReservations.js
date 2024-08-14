@@ -7,6 +7,7 @@ const DisplayMemberReservations = () => {
     const [sessions, setSessions] = useState({});
     const navigate = useNavigate();
     const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
+    const currentDate = new Date();
 
 
     const handlePayReservation = (reservationId) => {
@@ -35,6 +36,7 @@ const DisplayMemberReservations = () => {
             const response = await axios.get(`http://34.30.198.59:8081/api/reservations/${reservationId}/sessions`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            console.log(`Sessions for reservation ${reservationId}:`, response.data); // Log sessions
             setSessions(prevSessions => ({
                 ...prevSessions,
                 [reservationId]: response.data
@@ -55,24 +57,19 @@ const DisplayMemberReservations = () => {
         }
     };
 
-    const isSessionInFuture = (sessionDate) => {
-        const currentDate = new Date();
-        const sessionDateObj = new Date(sessionDate);
-        return sessionDateObj >= currentDate;
-    };
-
-    const isReservationValid = (reservationId) => {
-        const reservationSessions = sessions[reservationId] || [];
-        return reservationSessions.some(session => isSessionInFuture(session.date));
-    };
-
-    const filteredReservations = reservations.filter(reservation => {
-        if (!isReservationValid(reservation.id)) {
-            return false;
-        }
+    const filteredReservations = reservations
+    .filter(reservation => {
         if (filter === 'paid') return reservation.validate;
         if (filter === 'unpaid') return !reservation.validate;
         return true; // 'all' filter
+    })
+    .filter(reservation => {
+        // Obtenir la date actuelle
+        const currentDate = new Date();
+        // Vérifier si toutes les sessions de la réservation ont une date passée
+        const allSessionsPassed = reservation.sessions.every(session => new Date(session.date) < currentDate);
+        // Inclure la réservation seulement si toutes les sessions ne sont pas passées
+        return !allSessionsPassed;
     });
 
     return (
@@ -101,15 +98,23 @@ const DisplayMemberReservations = () => {
             <ul className="list-group">
                 {filteredReservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
-                        <h2 style={{ color: reservation.validate ? 'green' : 'black' }}>N° de réservation: {reservation.id}</h2>
-                        <p>Date de la commande: {reservation.orderDate}</p>
+                        <h2 style={{ color: reservation.validate ? 'green' : 'red' }}>N° de réservation: {reservation.id}</h2>
+                        <p>Date de la commande: {reservation.orderedDate}</p>
                         {reservation.validate && <p>Date de paiement: {reservation.validateDate}</p>}
-                        {!reservation.validate && (
-                            <button className="btn btn-primary">Payer ma réservation</button>
-                        )}
-                        <button className="btn btn-secondary" onClick={() => toggleSessions(reservation.id)}>
-                            {sessions[reservation.id] ? 'Masquer les sessions' : 'Afficher les sessions'}
+                        <button 
+                            className="btn btn-primary mr-2" 
+                            onClick={() => toggleSessions(reservation.id)}
+                        >
+                            {sessions[reservation.id] ? 'Cacher les séances' : 'Montrer les séances'}
                         </button>
+                        {!reservation.validate && (
+                        <button 
+                            className="btn btn-success" 
+                            onClick={() => handlePayReservation(reservation.id)}
+                        >
+                            Payé ma réservation
+                        </button>
+                        )}
                         {sessions[reservation.id] && (
                             <ul>
                                 {sessions[reservation.id].map(session => (
