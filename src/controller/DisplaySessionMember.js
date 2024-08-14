@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function DisplaySessionMember() {
     const [sessions, setSessions] = useState([]);
     const [cart, setCart] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -29,7 +32,8 @@ function DisplaySessionMember() {
         })
             .then(response => {
                 console.log('Order registered successfully');
-                setCart([]); // Clear the cart after successful order
+                setCart([]); 
+                navigate('/payment');
             })
             .catch(error => {
                 console.error('There was an error registering the order!', error);
