@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "react-credit-cards";
+import Card from "react-credit-cards-2";
 
 import SupportedCards from "./Cards";
 
