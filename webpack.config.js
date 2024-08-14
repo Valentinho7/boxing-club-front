@@ -30,7 +30,7 @@ module.exports = {
       "vm": require.resolve("vm-browserify"),
       "stream": require.resolve("stream-browserify"),
       "util": require.resolve("util/"),
-      "process": require.resolve("process/browser")  
+      "process": require.resolve("process/browser.js")  
     } 
   },
   module: {
