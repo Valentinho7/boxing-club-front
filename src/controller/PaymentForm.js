@@ -90,7 +90,7 @@ class PaymentForm extends React.Component {
   };
 
   render() {
-    const { name, number, expiry, cvc, focused, issuer, formData } = this.state;
+    const { name, number, expiry, cvc, focused, issuer, formData, successMessage, errorMessage } = this.state;
 
     return (
       <div key="Payment">
