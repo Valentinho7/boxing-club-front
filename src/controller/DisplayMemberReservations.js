@@ -47,9 +47,6 @@ const DisplayMemberReservations = () => {
     };
 
     const toggleSessions = (reservationId) => {
-        console.log('sessions:', sessions);
-        console.log('reservationId:', reservationId);
-
         if (sessions[reservationId]) {
             setSessions(prevSessions => ({
                 ...prevSessions,
@@ -71,8 +68,8 @@ const DisplayMemberReservations = () => {
         const currentDate = new Date();
         // Vérifier si toutes les sessions de la réservation ont une date passée
         let allSessionsPassed = true;
-        console.log('reservation:', reservation);
-        for (let session of reservation.session) {
+        console.log('reservation.sessions:', reservation.id.sessions);
+        for (let session of reservation.id.sessions) {
             if (new Date(session.date) >= currentDate) {
                 allSessionsPassed = false;
                 break;
