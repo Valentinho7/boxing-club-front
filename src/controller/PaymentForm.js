@@ -48,29 +48,34 @@ export default class App extends React.Component {
     this.setState({ [target.name]: target.value });
   };
 
-  handlePaymentValidation = async (event) => {
+  const handlePaymentValidation = (event) => {
     event.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
     const reservationId = urlParams.get('reservationId');
     const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage
-  
+
     if (reservationId) {
-      try {
-        const response = await axios.put(`http://34.30.198.59:8081/api/reservations/${reservationId}/validate`, {}, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-  
-        if (response.status === 200) {
-          alert('Réservation validée avec succès');
+      axios.put(`http://34.30.198.59:8081/api/reservations/${reservationId}/validate`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(({ data, status }) => {
+        if (status === 200) {
+          setErrorMessage(null);
+          setSuccessMessage('Réservation validée avec succès. Redirection vers la page de réservation...');
+          setTimeout(() => {
+            navigate('/reservations');
+          }, 5000); 
         } else {
-          alert('Erreur lors de la validation de la réservation');
+          const errorMessage = typeof data === 'object' ? JSON.stringify(data) : data;
+          setErrorMessage(errorMessage);
         }
-      } catch (error) {
-        console.error('Erreur:', error);
-        alert('Erreur lors de la validation de la réservation');
-      }
+      })
+      .catch((error) => {
+        const errorMessage = error.response ? error.response.data : error.message;
+        setErrorMessage(errorMessage);
+      });
     } else {
-      alert('Aucun ID de réservation trouvé');
+      setErrorMessage('Aucun ID de réservation trouvé');
     }
   };
 
