@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
+    const navigate = useNavigate();
 
     const handlePayReservation = (reservationId) => {
-        navigate.push(`/payment?reservationId=${reservationId}`);
+        navigate(`/payment?reservationId=${reservationId}`);
     };
 
     useEffect(() => {
