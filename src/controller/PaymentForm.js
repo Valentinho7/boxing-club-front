@@ -21,7 +21,17 @@ export default class App extends React.Component {
     cvc: "",
     issuer: "",
     focused: "",
-    formData: null
+    formData: null,
+    successMessage: '',
+    errorMessage: ''
+  };
+
+  setSuccessMessage = (message) => {
+    this.setState({ successMessage: message });
+  };
+
+  setErrorMessage = (message) => {
+    this.setState({ errorMessage: message });
   };
 
   handleCallback = ({ issuer }, isValid) => {
