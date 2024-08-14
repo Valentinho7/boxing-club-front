@@ -23,6 +23,8 @@ function DisplaySessionMember() {
 
     const addToCart = (sessionId) => {
         setCart([...cart, sessionId]);
+        setConfirmationMessage('');
+        setErrorMessage('');
     };
 
     const removeFromCart = (sessionId) => {

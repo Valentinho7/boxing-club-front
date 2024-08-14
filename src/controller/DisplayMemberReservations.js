@@ -60,31 +60,34 @@ const DisplayMemberReservations = () => {
             <ul className="list-group">
                 {reservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
-                        <h2>N° de reservation: {reservation.id}</h2>
+                        <h2 style={{ color: reservation.validate ? 'green' : 'red' }}>N° de réservation: {reservation.id}</h2>
                         <p>Date de la commande: {reservation.orderedDate}</p>
+                        {reservation.validate && <p>Date de paiement: {reservation.validateDate}</p>}
                         <button 
                             className="btn btn-primary mr-2" 
                             onClick={() => toggleSessions(reservation.id)}
                         >
-                            {sessions[reservation.id] ? 'Hide Sessions' : 'Show Sessions'}
+                            {sessions[reservation.id] ? 'Cacher les séances' : 'Montrer les séances'}
                         </button>
+                        {!reservation.validate && (
                         <button 
                             className="btn btn-success" 
                             onClick={() => handlePayReservation(reservation.id)}
                         >
                             Payé ma réservation
                         </button>
+                        )}
                         {sessions[reservation.id] && (
                             <ul>
                                 {sessions[reservation.id].map(session => (
                                     <li key={session.id}>
                                         <h3>{session.name}</h3>
-                                        <p>Duration: {session.durationInHours} hours</p>
-                                        <p>Type: {session.sessionType.name}</p>
+                                        <p>Durée: {session.durationInHours} heures</p>
+                                        <p>Type de séance: {session.sessionType.name}</p>
                                         <p>Date: {session.date}</p>
-                                        <p>Hour: {session.hour}H00</p>
+                                        <p>Heure: {session.hour}H00</p>
                                         <p>Coach: {session.coachName}</p>
-                                        <p>Max People: {session.maxPeople}</p>
+                                        <p>Capacité maximum: {session.maxPeople}</p>
                                         <p>Description: {session.description}</p>
                                     </li>
                                 ))}
