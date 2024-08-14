@@ -51,7 +51,7 @@ function DisplaySessionMember() {
         <div className="container">
             <h1>Sessions</h1>
             <ul className="list-group">
-                {sessions.map(session => (
+                {sessions.filter(session => isSessionInFuture(session.date)).map(session => (
                     <li key={session.id} className="list-group-item">
                         <h2>{session.name}</h2>
                         <p>Duration: {session.durationInHours} hours</p>
