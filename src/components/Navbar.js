@@ -44,7 +44,7 @@ function Navbar() {
         if (role === 'Member') {
             return (
                 <>
-                    <li><Link className="dropdown-item" to="/validatedReservations">Mes réservations</Link></li>
+                    <li><Link className="dropdown-item" to="/memberReservations">Mes réservations</Link></li>
                     <li><Link className="dropdown-item" to="/history">Mon historique des réservations</Link></li>
                 </>
             );

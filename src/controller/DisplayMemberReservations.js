@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const DisplayValidatedReservations = () => {
+const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
 
     useEffect(() => {
-        const fetchValidatedReservations = async () => {
+        const fetchMemberReservations = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://34.30.198.59:8081/api/reservations/validated', {
+                const response = await axios.get('http://34.30.198.59:8081/api/reservations/myReservations', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setReservations(response.data);
             } catch (error) {
-                console.error('There was an error fetching the validated reservations!', error);
+                console.error('There was an error fetching the member reservations!', error);
             }
         };
 
-        fetchValidatedReservations();
+        fetchMemberReservations();
     }, []);
 
     const fetchSessions = async (reservationId) => {
@@ -82,4 +82,4 @@ const DisplayValidatedReservations = () => {
     );
 };
 
-export default DisplayValidatedReservations;
+export default DisplayMemberReservations;

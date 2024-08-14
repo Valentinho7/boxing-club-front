@@ -15,7 +15,7 @@ import RegisterAdmin from '../controller/RegisterAdminController';
 import DisplaySessionType from '../controller/DisplaySessionType.js';
 import DisplaySession from '../controller/DisplaySession.js';
 import DisplaySessionMember from '../controller/DisplaySessionMember.js';
-import DisplayValidatedReservations from '../controller/DisplayValidatedReservations.js';
+import DisplayMemberReservations from '../controller/DisplayMemberReservations.js';
 
 function App() {
     return (
@@ -36,7 +36,7 @@ function App() {
                     <Route path="/sessions/type" element={<DisplaySessionType />} />
                     <Route path="/sessions" element={<DisplaySession />} />
                     <Route path="/sessions/member" element={<DisplaySessionMember />} />
-                    <Route path="/validatedReservations" element={<DisplayValidatedReservations />} />
+                    <Route path="/memberReservations" element={<DisplayMemberReservations />} />
                 </Routes>
             </Router>
         </AuthProvider>
