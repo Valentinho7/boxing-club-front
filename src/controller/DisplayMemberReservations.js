@@ -6,6 +6,8 @@ const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
     const navigate = useNavigate();
+    const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
+
 
     const handlePayReservation = (reservationId) => {
         navigate(`/payment?reservationId=${reservationId}`);
@@ -54,9 +56,35 @@ const DisplayMemberReservations = () => {
         }
     };
 
+    const filteredReservations = reservations.filter(reservation => {
+        if (filter === 'paid') return reservation.validate;
+        if (filter === 'unpaid') return !reservation.validate;
+        return true; // 'all' filter
+    });
+
     return (
         <div className="container">
             <h1>Mes réservations</h1>
+            <div className="btn-group mb-3">
+                <button
+                    className={`btn ${filter === 'all' ? 'btn-dark text-white' : 'btn-light text-dark'}`}
+                    onClick={() => setFilter('all')}
+                >
+                    Toutes mes réservations
+                </button>
+                <button
+                    className={`btn ${filter === 'paid' ? 'btn-dark text-white' : 'btn-light text-dark'}`}
+                    onClick={() => setFilter('paid')}
+                >
+                    Mes réservations payées
+                </button>
+                <button
+                    className={`btn ${filter === 'unpaid' ? 'btn-dark text-white' : 'btn-light text-dark'}`}
+                    onClick={() => setFilter('unpaid')}
+                >
+                    Mes réservations non payées
+                </button>
+            </div>
             <ul className="list-group">
                 {reservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">

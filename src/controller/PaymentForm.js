@@ -72,7 +72,7 @@ class PaymentForm extends React.Component {
         });
   
         if (response.status === 200) {
-            this.setSuccessMessage('Réservation validée avec succès. Redirection vers la page de réservation...');
+            this.setSuccessMessage('Paiement validé avec succès. Redirection vers la page de réservation...');
             setTimeout(() => {
               this.props.navigate('/memberReservations');
             }, 5000);
