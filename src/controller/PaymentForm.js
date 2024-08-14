@@ -95,6 +95,8 @@ class PaymentForm extends React.Component {
     return (
       <div key="Payment">
         <div className="App-payment">
+        {successMessage && <div className="alert alert-success" role="alert">{successMessage}</div>}
+        {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
           <Card
             number={number}
             name={name}
@@ -170,8 +172,6 @@ class PaymentForm extends React.Component {
           <hr style={{ margin: "30px 0" }} />
           <SupportedCards />
         </div>
-        {this.state.successMessage && <div className="success-message">{this.state.successMessage}</div>}
-        {this.state.errorMessage && <div className="error-message">{this.state.errorMessage}</div>}
       </div>
     );
   }
