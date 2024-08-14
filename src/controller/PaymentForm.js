@@ -48,34 +48,33 @@ export default class App extends React.Component {
     this.setState({ [target.name]: target.value });
   };
 
-  const handlePaymentValidation = (event) => {
+  handlePaymentValidation = async (event) => {
     event.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
     const reservationId = urlParams.get('reservationId');
     const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage
-
+  
     if (reservationId) {
-      axios.put(`http://34.30.198.59:8081/api/reservations/${reservationId}/validate`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then(({ data, status }) => {
-        if (status === 200) {
-          setErrorMessage(null);
-          setSuccessMessage('Réservation validée avec succès. Redirection vers la page de réservation...');
-          setTimeout(() => {
-            navigate('/reservations');
-          }, 5000); 
+      try {
+        const response = await axios.put(`http://34.30.198.59:8081/api/reservations/${reservationId}/validate`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        if (response.status === 200) {
+            this.setSuccessMessage('Réservation validée avec succès. Redirection vers la page de réservation...');
+            setTimeout(() => {
+              this.props.navigate('/reservations');
+            }, 5000);
         } else {
-          const errorMessage = typeof data === 'object' ? JSON.stringify(data) : data;
-          setErrorMessage(errorMessage);
+            const errorMessage = typeof response.data === 'object' ? JSON.stringify(response.data) : response.data;
+            this.setErrorMessage(errorMessage);
         }
-      })
-      .catch((error) => {
-        const errorMessage = error.response ? error.response.data : error.message;
-        setErrorMessage(errorMessage);
-      });
+      } catch (error) {
+        console.error('Erreur:', error);
+        this.setErrorMessage(errorMessage);
+      }
     } else {
-      setErrorMessage('Aucun ID de réservation trouvé');
+        this.setErrorMessage('Aucun ID de réservation trouvé');
     }
   };
 
