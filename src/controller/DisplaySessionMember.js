@@ -47,6 +47,12 @@ function DisplaySessionMember() {
             });
     };
 
+    const isSessionInFuture = (sessionDate) => {
+        const currentDate = new Date();
+        const sessionDateObj = new Date(sessionDate);
+        return sessionDateObj >= currentDate;
+    };
+
     return (
         <div className="container">
             <h1>Sessions</h1>
