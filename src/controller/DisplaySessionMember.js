@@ -54,20 +54,20 @@ function DisplaySessionMember() {
                         <p>Hour: {session.hour}H00</p>
                         <p>Coach: {session.coachName}</p>
                         <p>Max People: {session.maxPeople}</p>
-                        <button onClick={() => addToCart(session.id)}>Ajouter au panier</button>
+                        <button onClick={() => addToCart(session.id)} className="btn btn-primary">Ajouter au panier</button>
                     </li>
                 ))}
             </ul>
             {cart.length > 0 && (
                 <div>
                     <h2>Panier</h2>
-                    <ul>
+                    <ul className="list-group">
                         {cart.map(sessionId => {
                             const session = sessions.find(s => s.id === sessionId);
-                            return <li key={sessionId}>{session.name}</li>;
+                            return <li key={sessionId} className="list-group-item">{session.name}</li>;
                         })}
                     </ul>
-                    <button onClick={registerOrder}>Valider la réservation</button>
+                    <button onClick={registerOrder} className="btn btn-success">Valider la réservation</button>
                 </div>
             )}
         </div>
