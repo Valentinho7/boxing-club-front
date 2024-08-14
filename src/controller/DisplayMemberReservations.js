@@ -50,7 +50,7 @@ const DisplayMemberReservations = () => {
 
     return (
         <div className="container">
-            <h1>Validated Reservations</h1>
+            <h1>Mes réservations</h1>
             <ul className="list-group">
                 {reservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
@@ -58,6 +58,9 @@ const DisplayMemberReservations = () => {
                         <p>Date de la commande: {reservation.orderedDate}</p>
                         <button onClick={() => toggleSessions(reservation.id)}>
                             {sessions[reservation.id] ? 'Hide Sessions' : 'Show Sessions'}
+                        </button>
+                        <button onClick={() => handlePayReservation(reservation.id)}>
+                        Payé ma réservation
                         </button>
                         {sessions[reservation.id] && (
                             <ul>
