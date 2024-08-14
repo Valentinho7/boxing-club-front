@@ -65,7 +65,7 @@ const DisplayValidatedReservations = () => {
                                     <li key={session.id}>
                                         <h3>{session.name}</h3>
                                         <p>Duration: {session.durationInHours} hours</p>
-                                        <p>Type: {session.sessionType}</p>
+                                        <p>Type: {session.sessionType.name}</p>
                                         <p>Date: {session.date}</p>
                                         <p>Hour: {session.hour}H00</p>
                                         <p>Coach: {session.coachName}</p>
