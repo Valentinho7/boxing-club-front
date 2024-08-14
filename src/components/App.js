@@ -7,7 +7,6 @@ import UpdateController from '../controller/MemberDetailsController';
 import ConnectionController from '../controller/ConnectionController';
 import ValidateAccount from '../controller/ValidateAccount';
 import Navbar from '../components/Navbar'; 
-import PaymentForm from './PaymentForm.js';
 import HomePage from '../components/HomePage'; 
 import Password from '../controller/ChangePasswordController';
 import AdminPassword from '../controller/ChangePasswordControllerAdmin';
@@ -38,7 +37,6 @@ function App() {
                     <Route path="/sessions" element={<DisplaySession />} />
                     <Route path="/sessions/member" element={<DisplaySessionMember />} />
                     <Route path="/memberReservations" element={<DisplayMemberReservations />} />
-                    <Route path="/payment" element={<PaymentForm />} />
                 </Routes>
             </Router>
         </AuthProvider>
