@@ -27,6 +27,7 @@ const DisplayValidatedReservations = () => {
             const response = await axios.get(`http://34.30.198.59:8081/api/reservations/${reservationId}/sessions`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            console.log(`Sessions for reservation ${reservationId}:`, response.data); // Log sessions
             setSessions(prevSessions => ({
                 ...prevSessions,
                 [reservationId]: response.data
@@ -66,7 +67,7 @@ const DisplayValidatedReservations = () => {
                                         <p>Duration: {session.durationInHours} hours</p>
                                         <p>Type: {session.sessionType}</p>
                                         <p>Date: {session.date}</p>
-                                        <p>Hour: {session.hour}</p>
+                                        <p>Hour: {session.hour}H00</p>
                                         <p>Coach: {session.coachName}</p>
                                         <p>Max People: {session.maxPeople}</p>
                                         <p>Description: {session.description}</p>
