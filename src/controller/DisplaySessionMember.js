@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 
 function DisplaySessionMember() {
     const [sessions, setSessions] = useState([]);
     const [cart, setCart] = useState([]);
-    const navigate = useNavigate();
+    const [confirmationMessage, setConfirmationMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -25,18 +25,23 @@ function DisplaySessionMember() {
         setCart([...cart, sessionId]);
     };
 
+    const removeFromCart = (sessionId) => {
+        setCart(cart.filter(id => id !== sessionId));
+    };
+
     const registerOrder = () => {
         const token = localStorage.getItem('token');
         axios.post('http://34.30.198.59:8081/api/reservations', cart, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(response => {
-                console.log('Order registered successfully');
                 setCart([]); 
-                navigate('/payment');
+                setConfirmationMessage('Commande validée. Veuillez vous diriger vers la section "Mes réservations" pour finaliser la commande.');
+                setErrorMessage('');
             })
             .catch(error => {
-                console.error('There was an error registering the order!', error);
+                setErrorMessage('Une erreur est survenue lors de la validation de la réservation.');
+                setConfirmationMessage('');
             });
     };
 
@@ -64,12 +69,19 @@ function DisplaySessionMember() {
                     <ul className="list-group">
                         {cart.map(sessionId => {
                             const session = sessions.find(s => s.id === sessionId);
-                            return <li key={sessionId} className="list-group-item">{session.name}</li>;
+                            return (
+                                <li key={sessionId} className="list-group-item d-flex justify-content-between align-items-center">
+                                {session.name}
+                                <button onClick={() => removeFromCart(sessionId)} className="btn btn-danger">Supprimer</button>
+                            </li>
+                            );
                         })}
                     </ul>
                     <button onClick={registerOrder} className="btn btn-success">Valider la réservation</button>
                 </div>
             )}
+            {confirmationMessage && <div className="alert alert-success mt-3" role="alert">{confirmationMessage}</div>}
+            {errorMessage && <div className="alert alert-danger mt-3" role="alert">{errorMessage}</div>}
         </div>
     );
 }
