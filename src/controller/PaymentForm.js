@@ -67,8 +67,6 @@ export default class App extends React.Component {
     return (
       <div key="Payment">
         <div className="App-payment">
-          <h1>React Credit Cards</h1>
-          <h4>Beautiful credit cards for your payment forms</h4>
           <Card
             number={number}
             name={name}
@@ -83,20 +81,19 @@ export default class App extends React.Component {
                 type="tel"
                 name="number"
                 className="form-control"
-                placeholder="Card Number"
+                placeholder="Numéro de carte"
                 pattern="[\d| ]{16,22}"
                 required
                 onChange={this.handleInputChange}
                 onFocus={this.handleInputFocus}
               />
-              <small>E.g.: 49..., 51..., 36..., 37...</small>
             </div>
             <div className="form-group">
               <input
                 type="text"
                 name="name"
                 className="form-control"
-                placeholder="Name"
+                placeholder="Titulaire de la carte"
                 required
                 onChange={this.handleInputChange}
                 onFocus={this.handleInputFocus}
@@ -108,7 +105,7 @@ export default class App extends React.Component {
                   type="tel"
                   name="expiry"
                   className="form-control"
-                  placeholder="Valid Thru"
+                  placeholder="MM/AA"
                   pattern="\d\d/\d\d"
                   required
                   onChange={this.handleInputChange}
@@ -120,7 +117,7 @@ export default class App extends React.Component {
                   type="tel"
                   name="cvc"
                   className="form-control"
-                  placeholder="CVC"
+                  placeholder="CVV"
                   pattern="\d{3,4}"
                   required
                   onChange={this.handleInputChange}
