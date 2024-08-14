@@ -18,7 +18,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      'process/browser': require.resolve('process/browser'),
+      'process/browser': require.resolve('process/browser.js'),
       'react-dom': path.resolve('./node_modules/react-dom'),
       'framer-motion': path.resolve('./node_modules/framer-motion'),
     },
