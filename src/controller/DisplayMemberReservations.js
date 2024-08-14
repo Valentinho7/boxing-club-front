@@ -86,7 +86,7 @@ const DisplayMemberReservations = () => {
                 </button>
             </div>
             <ul className="list-group">
-                {reservations.map(reservation => (
+                {filteredReservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
                         <h2 style={{ color: reservation.validate ? 'green' : 'red' }}>N° de réservation: {reservation.id}</h2>
                         <p>Date de la commande: {reservation.orderedDate}</p>
