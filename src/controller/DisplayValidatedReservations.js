@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const DisplayValidatedReservations = () => {
     const [reservations, setReservations] = useState([]);
+    const [sessions, setSessions] = useState({});
 
     useEffect(() => {
         const fetchValidatedReservations = async () => {
@@ -20,6 +21,32 @@ const DisplayValidatedReservations = () => {
         fetchValidatedReservations();
     }, []);
 
+    const fetchSessions = async (reservationId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://34.30.198.59:8081/api/reservations/${reservationId}/sessions`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setSessions(prevSessions => ({
+                ...prevSessions,
+                [reservationId]: response.data
+            }));
+        } catch (error) {
+            console.error('There was an error fetching the sessions!', error);
+        }
+    };
+
+    const toggleSessions = (reservationId) => {
+        if (sessions[reservationId]) {
+            setSessions(prevSessions => ({
+                ...prevSessions,
+                [reservationId]: null
+            }));
+        } else {
+            fetchSessions(reservationId);
+        }
+    };
+
     return (
         <div className="container">
             <h1>Validated Reservations</h1>
@@ -28,8 +55,25 @@ const DisplayValidatedReservations = () => {
                     <li key={reservation.id} className="list-group-item">
                         <h2>N° de reservation: {reservation.id}</h2>
                         <p>Date de la commande: {reservation.orderedDate}</p>
-                        <p>Date du paiement: {reservation.validateDate}</p>
-                        <p>Paiement validé ? {reservation.isValidate ? 'Yes' : 'No'}</p>
+                        <button onClick={() => toggleSessions(reservation.id)}>
+                            {sessions[reservation.id] ? 'Hide Sessions' : 'Show Sessions'}
+                        </button>
+                        {sessions[reservation.id] && (
+                            <ul>
+                                {sessions[reservation.id].map(session => (
+                                    <li key={session.id}>
+                                        <h3>{session.name}</h3>
+                                        <p>Duration: {session.durationInHours} hours</p>
+                                        <p>Type: {session.sessionType}</p>
+                                        <p>Date: {session.date}</p>
+                                        <p>Hour: {session.hour}</p>
+                                        <p>Coach: {session.coachName}</p>
+                                        <p>Max People: {session.maxPeople}</p>
+                                        <p>Description: {session.description}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </li>
                 ))}
             </ul>
