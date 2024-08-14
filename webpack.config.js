@@ -1,5 +1,5 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
@@ -13,24 +13,19 @@ module.exports = {
       template: "./src/index.html",
     }),
     new webpack.ProvidePlugin({
-      process: 'process/browser.js',
+      process: 'process/browser',
     }),
   ],
   resolve: {
-    alias: {
-      'process/browser': require.resolve('process/browser.js'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-      'framer-motion': path.resolve('./node_modules/framer-motion'),
-    },
     modules: [__dirname, "src", "node_modules"],
-    extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+    extensions: [".*", ".js", ".jsx", ".tsx", ".ts"],
     fallback: { 
       "buffer": require.resolve("buffer/"),
       "crypto": require.resolve("crypto-browserify"),
       "vm": require.resolve("vm-browserify"),
       "stream": require.resolve("stream-browserify"),
       "util": require.resolve("util/"),
-      "process": require.resolve("process/browser.js")  
+      "process": require.resolve("process/browser")  
     } 
   },
   module: {
@@ -38,10 +33,16 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loader: require.resolve("babel-loader"),
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.png|svg|jpg|gif$/,
+        use: ["file-loader"],
+      }, 
     ],
   },
 };
