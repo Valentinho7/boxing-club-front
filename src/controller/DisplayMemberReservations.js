@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
 
     const handlePayReservation = (reservationId) => {
-        history.push(`/payment?reservationId=${reservationId}`);
+        navigate.push(`/payment?reservationId=${reservationId}`);
     };
 
     useEffect(() => {
