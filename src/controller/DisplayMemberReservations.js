@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
+    const [visibleSessions, setVisibleSessions] = useState({}); // Pour gérer l'affichage des séances
     const [filteredReservations, setFilteredReservations] = useState([]);
     const navigate = useNavigate();
     const [filter, setFilter] = useState('all');
@@ -72,14 +73,10 @@ const DisplayMemberReservations = () => {
     };
 
     const toggleSessions = (reservationId) => {
-        if (sessions[reservationId]) {
-            setSessions(prevSessions => ({
-                ...prevSessions,
-                [reservationId]: null
-            }));
-        } else {
-            fetchSessions(reservationId);
-        }
+        setVisibleSessions(prevVisibleSessions => ({
+            ...prevVisibleSessions,
+            [reservationId]: !prevVisibleSessions[reservationId] // Bascule entre montrer et cacher
+        }));
     };
 
     // Gérer le filtre par état (toutes, payées, non payées)
@@ -127,7 +124,7 @@ const DisplayMemberReservations = () => {
                             className="btn btn-primary mr-2" 
                             onClick={() => toggleSessions(reservation.id)}
                         >
-                            {sessions[reservation.id] ? 'Cacher les séances' : 'Montrer les séances'}
+                            {visibleSessions[reservation.id] ? 'Cacher les séances' : 'Montrer les séances'}
                         </button>
                         {!reservation.validate && (
                         <button 
@@ -137,7 +134,7 @@ const DisplayMemberReservations = () => {
                             Payé ma réservation
                         </button>
                         )}
-                        {sessions[reservation.id] && (
+                        {visibleSessions[reservation.id] && sessions[reservation.id] && (
                             <ul>
                                 {sessions[reservation.id].map(session => (
                                     <li key={session.id}>
