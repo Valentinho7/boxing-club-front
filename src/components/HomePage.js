@@ -81,7 +81,7 @@ function HomePage() {
         src={newImage2} 
         alt="Boxing Image" 
         style={{
-            width: '300px', /* Adjusted size */
+            width: '600px', /* Adjusted size */
             height: 'auto',
             borderRadius: '5px', /* Slight border radius */
             marginRight: '30px' /* Space between image and text */
