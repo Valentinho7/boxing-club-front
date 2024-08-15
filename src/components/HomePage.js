@@ -1,6 +1,6 @@
 import React from 'react';
 import backgroundImage from '../img/home-page-boxe.jpg';
-import newImage from '../img/mike.jpg'; // Adjust the path as necessary
+import newImage from '../img/mike.jpg'; // Ensure the path is correct
 
 function HomePage() {
     return (
@@ -36,21 +36,27 @@ function HomePage() {
             </div>
 
             {/* New section below the background image */}
-            <div style={{ display: 'flex', alignItems: 'center', padding: '20px', backgroundColor: '#f7f7f7' }}>
+            <div style={{ display: 'flex', alignItems: 'center', padding: '40px', backgroundColor: '#fff' }}>
                 <img 
                     src={newImage} 
-                    alt="Jérémy Blackwell" 
+                    alt="Mike Tyson" 
                     style={{
-                        width: '200px', /* Adjust the size as needed */
+                        width: '180px', /* Adjusted size */
                         height: 'auto',
-                        borderRadius: '10px', /* Optional: add rounded corners */
-                        marginRight: '20px' /* Space between image and text */
+                        borderRadius: '5px', /* Slight border radius */
+                        marginRight: '30px' /* Space between image and text */
                     }}
                 />
                 <div>
-                    <h2 style={{ margin: '0 0 10px 0' }}>"Boxing Club permet de rendre la boxe accessible à des débutants"</h2>
-                    <p>Mike Tyson</p>
-                    <p style={{ fontStyle: 'italic', marginBottom: '5px' }}>Boxeur professionnel</p>
+                    <h2 style={{ margin: '0', fontSize: '1.8em', fontWeight: 'bold', color: '#333' }}>
+                        "Boxing Club permet de rendre la boxe accessible à des débutants"
+                    </h2>
+                    <p style={{ margin: '5px 0', fontSize: '1.2em', fontWeight: 'normal', color: '#555' }}>
+                        Mike Tyson
+                    </p>
+                    <p style={{ fontStyle: 'italic', margin: '0', fontSize: '1em', color: '#777' }}>
+                        Boxeur professionnel
+                    </p>
                 </div>
             </div>
         </div>
