@@ -1,11 +1,11 @@
 import React from 'react';
+import image from '../img/home-page-boxe.jpg';
 
 function HomePage() {
     return (
-        <div style={{ position: 'relative', marginTop: '60px' }}> {/* Ajuste la marge supérieure si nécessaire pour la navbar */}
-            {/* Image de fond */}
+        <div style={{ position: 'relative', marginTop: '60px' }}> 
             <img 
-                src="home-page-boxe.jpg" 
+                src={image} 
                 alt="Boxing background" 
                 style={{ 
                     width: '100%', 
