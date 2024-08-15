@@ -83,6 +83,7 @@ function HomePage() {
         Rejoindre Boxing Club, c'est bien plus que pratiquer un sport; c'est intégrer une communauté passionnée et soudée, où chaque membre est encouragé à donner le meilleur de lui-même. N'attendez plus, commencez votre parcours vers une meilleure forme physique et mentale avec nous.</p>
         
     </div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '30px' }}>
     <img 
         src={newImage2} 
         alt="Boxing Image" 
@@ -90,7 +91,7 @@ function HomePage() {
             width: '500px', /* Adjusted size */
             height: 'auto',
             borderRadius: '5px', /* Slight border radius */
-            marginRight: '30px' /* Space between image and text */
+            marginBottom: '30px' /* Space between images */
         }}
     />
     <img 
@@ -100,9 +101,9 @@ function HomePage() {
             width: '500px', /* Adjusted size */
             height: 'auto',
             borderRadius: '5px', /* Slight border radius */
-            marginRight: '30px' /* Space between image and text */
         }}
     />
+</div>
 </div>
         </div>
     );
