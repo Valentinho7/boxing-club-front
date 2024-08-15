@@ -65,9 +65,17 @@ const DisplayMemberReservations = () => {
     };
 
     const filteredReservations = reservations.filter(reservation => {
+        // Filtrage selon l'état (paid, unpaid, all)
         if (filter === 'paid') return reservation.validate;
         if (filter === 'unpaid') return !reservation.validate;
+
         return true; // 'all' filter
+    }).filter(reservation => {
+        // Filtrer les réservations pour lesquelles toutes les sessions ne sont pas passées
+        if (sessions[reservation.id]) {
+            return !areAllSessionsPassed(reservation.id);
+        }
+        return true; // Si les sessions ne sont pas encore chargées, on affiche la réservation
     });
 
     return (
