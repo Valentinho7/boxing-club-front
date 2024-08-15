@@ -2,6 +2,7 @@ import React from 'react';
 import backgroundImage from '../img/home-page-boxe.jpg';
 import newImage from '../img/mike.jpg';
 import newImage2 from '../img/boxe.jpg';
+import newImage3 from '../img/boxe2.jpg';
 
 function HomePage() {
     return (
@@ -86,7 +87,17 @@ function HomePage() {
         src={newImage2} 
         alt="Boxing Image" 
         style={{
-            width: '600px', /* Adjusted size */
+            width: '500px', /* Adjusted size */
+            height: 'auto',
+            borderRadius: '5px', /* Slight border radius */
+            marginRight: '30px' /* Space between image and text */
+        }}
+    />
+    <img 
+        src={newImage3} 
+        alt="Boxing Image" 
+        style={{
+            width: '500px', /* Adjusted size */
             height: 'auto',
             borderRadius: '5px', /* Slight border radius */
             marginRight: '30px' /* Space between image and text */
