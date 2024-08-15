@@ -59,6 +59,22 @@ function HomePage() {
         </p>
     </div>
 </div>
+
+{/* New text section */}
+<div style={{ padding: '20px', backgroundColor: '#fff', border: '1px solid #000', marginTop: '20px' }}>
+    <h1 style={{ fontSize: '2em', fontWeight: 'bold', color: '#333' }}>
+        Pourquoi vous devriez faire de la boxe ?
+    </h1>
+    <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#333' }}>
+        La boxe est le sport le plus complet.
+    </h2>
+    <p style={{ fontSize: '1em', color: '#555' }}>
+        Le Temple rassemble une communauté de Membres qui ont voulu commencer la boxe dans des lieux de caractère, un environnement haut de gamme et une atmosphère bienveillante.
+    </p>
+    <p style={{ fontSize: '1em', color: '#555' }}>
+        Pour commencer la boxe à Paris, vous pouvez rejoindre le Temple à tout moment et débuter avec un cours de boxe sur sac, sans combat. Les cours de Cross Training vous permettront de vous remettre en forme.
+    </p>
+</div>
         </div>
     );
 }
