@@ -1,6 +1,6 @@
 import React from 'react';
 import backgroundImage from '../img/home-page-boxe.jpg';
-import newImage from './path/to/your/uploaded/image.png'; // Adjust the path as necessary
+import newImage from '../img/mike.jpg'; // Adjust the path as necessary
 
 function HomePage() {
     return (
