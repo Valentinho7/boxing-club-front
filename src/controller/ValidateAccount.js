@@ -25,7 +25,7 @@ const ValidateAccount = () => {
         .then(data => {
             setSuccessMessage('Payment and subscription validated successfully.');
             // Redirection vers la page de paiement en cas de succès
-            navigate('/payment');
+            navigate('/paymentSubscription');
         })
         .catch((error) => {
             setErrorMessage(error.message);
