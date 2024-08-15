@@ -7,8 +7,7 @@ const DisplayMemberReservations = () => {
     const [sessions, setSessions] = useState({});
     const navigate = useNavigate();
     const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
-    const currentDate = new Date();
-
+    const currentDate = new Date(); // Définir la date actuelle ici pour l'utiliser dans toute la fonction
 
     const handlePayReservation = (reservationId) => {
         navigate(`/payment?reservationId=${reservationId}`);
@@ -57,26 +56,18 @@ const DisplayMemberReservations = () => {
         }
     };
 
-    const filteredReservations = reservations
-    .filter(reservation => {
+    const areAllSessionsPassed = (reservationId) => {
+        const reservationSessions = sessions[reservationId];
+        if (!reservationSessions) return false; // Pas encore de sessions chargées
+
+        // Vérifier si toutes les sessions de la réservation sont passées
+        return reservationSessions.every(session => new Date(session.date) < currentDate);
+    };
+
+    const filteredReservations = reservations.filter(reservation => {
         if (filter === 'paid') return reservation.validate;
         if (filter === 'unpaid') return !reservation.validate;
         return true; // 'all' filter
-    })
-    .filter(reservation => {
-        // Obtenir la date actuelle
-        const currentDate = new Date();
-        // Vérifier si toutes les sessions de la réservation ont une date passée
-        let allSessionsPassed = true;
-        console.log('reservation.sessions:', reservation.id.sessions);
-        for (let session of reservation.id.sessions) {
-            if (new Date(session.date) >= currentDate) {
-                allSessionsPassed = false;
-                break;
-            }
-        }        
-        // Inclure la réservation seulement si toutes les sessions ne sont pas passées
-        return !allSessionsPassed;
     });
 
     return (
@@ -119,7 +110,7 @@ const DisplayMemberReservations = () => {
                             className="btn btn-success" 
                             onClick={() => handlePayReservation(reservation.id)}
                         >
-                            Payé ma réservation
+                            Payer ma réservation
                         </button>
                         )}
                         {sessions[reservation.id] && (
