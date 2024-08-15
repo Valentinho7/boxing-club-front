@@ -4,6 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
+// Assurez-vous d'importer les fonctions correctement
+import {
+  formatCreditCardNumber,
+  formatCVC,
+  formatExpirationDate,
+  formatFormData
+} from "./utils"; // Remplacez './utils' par le chemin correct vers votre fichier utils
+
 class PaymentForm extends React.Component {
   state = {
     number: "",
@@ -37,7 +45,6 @@ class PaymentForm extends React.Component {
   };
 
   handleInputChange = ({ target }) => {
-    // Formatting input values
     if (target.name === "number") {
       target.value = formatCreditCardNumber(target.value);
     } else if (target.name === "expiry") {
@@ -127,9 +134,6 @@ class PaymentForm extends React.Component {
             </div>
           </form>
           <hr style={{ margin: "60px 0 30px" }} />
-          <div className="App-badges">
-          </div>
-          <hr style={{ margin: "30px 0" }} />
         </div>
       </div>
     );
