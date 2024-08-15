@@ -62,17 +62,7 @@ function HomePage() {
 </div>
 
 {/* New text section with image */}
-<div style={{ display: 'flex', alignItems: 'flex-start', padding: '20px', backgroundColor: '#fff', marginTop: '20px', border: '1px solid #000' }}>
-    <img 
-        src={newImage2} 
-        alt="Boxing Image" 
-        style={{
-            width: '250px', /* Adjusted size */
-            height: 'auto',
-            borderRadius: '5px', /* Slight border radius */
-            marginRight: '30px' /* Space between image and text */
-        }}
-    />
+<div style={{ display: 'flex', alignItems: 'flex-start', padding: '20px', backgroundColor: '#fff', marginTop: '20px' }}>
     <div>
         <h1 style={{ fontSize: '2em', fontWeight: 'bold', color: '#333' }}>
             Pourquoi vous devriez faire de la boxe ?
@@ -87,6 +77,16 @@ function HomePage() {
             Pour commencer la boxe à Paris, vous pouvez rejoindre Boxing Club à tout moment et débuter avec un cours de boxe sur sac, sans combat. Les cours de Cross Training vous permettront de vous remettre en forme.
         </p>
     </div>
+    <img 
+        src={newImage2} 
+        alt="Boxing Image" 
+        style={{
+            width: '300px', /* Adjusted size */
+            height: 'auto',
+            borderRadius: '5px', /* Slight border radius */
+            marginRight: '30px' /* Space between image and text */
+        }}
+    />
 </div>
         </div>
     );
