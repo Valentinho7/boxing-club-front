@@ -23,10 +23,10 @@ function HomePage() {
             textAlign: 'left', 
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'  /* Ombre pour améliorer la lisibilité du texte */
             }}>
-            <h1 style={{ fontSize: '4em', margin: 0, color: 'white' }}>  {/* Ajout explicite de color: white */}
+            <h1 style={{ fontSize: '3em', margin: 0, color: 'grey' }}>  {/* Ajout explicite de color: white */}
             La Boxe,<br />à l'état pur.
             </h1>
-                <p style={{ fontSize: '1.5em', marginTop: '10px', color: 'white' }}>
+                <p style={{ fontSize: '1.5em', marginTop: '10px', color: 'grey' }}>
                 Cours de boxe, avec ou sans combat.
                 </p>
             </div>
