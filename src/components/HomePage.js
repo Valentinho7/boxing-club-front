@@ -16,17 +16,18 @@ function HomePage() {
             
             {/* Texte superposé en haut à gauche */}
             <div style={{ 
-                position: 'absolute', 
-                top: '20px', 
-                left: '20px', 
-                color: 'white', 
-                fontWeight: 'bold', 
-                textAlign: 'left', 
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' /* Ajout d'une ombre pour améliorer la lisibilité du texte */
+            position: 'absolute', 
+            top: '20px', 
+            left: '20px', 
+            fontWeight: 'bold', 
+            textAlign: 'left', 
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)'  /* Ombre pour améliorer la lisibilité du texte */
             }}>
-                <h1 style={{ fontSize: '4em', margin: 0 }}>La Boxe,<br />à l'état pur.</h1>
-                <p style={{ fontSize: '1.5em', marginTop: '10px' }}>
-                    Cours de boxe, avec ou sans combat.
+            <h1 style={{ fontSize: '4em', margin: 0, color: 'white' }}>  {/* Ajout explicite de color: white */}
+            La Boxe,<br />à l'état pur.
+            </h1>
+                <p style={{ fontSize: '1.5em', marginTop: '10px', color: 'white' }}>
+                Cours de boxe, avec ou sans combat.
                 </p>
             </div>
         </div>
