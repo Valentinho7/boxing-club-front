@@ -5,11 +5,24 @@ import { useNavigate } from 'react-router-dom';
 const DisplayMemberReservations = () => {
     const [reservations, setReservations] = useState([]);
     const [sessions, setSessions] = useState({});
+    const [filteredReservations, setFilteredReservations] = useState([]);
     const navigate = useNavigate();
-    const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
-    const currentDate = new Date();
+    const [filter, setFilter] = useState('all');
 
+    // Fonction pour vérifier si une session est à venir
+    const isSessionUpcoming = (session) => {
+        const sessionDate = new Date(session.date);
+        const today = new Date();
+        return sessionDate >= today;
+    };
 
+    // Filtrer les réservations qui ont des sessions à venir
+    const filterReservationsWithUpcomingSessions = (reservations, sessions) => {
+        return reservations.filter(reservation => {
+            const reservationSessions = sessions[reservation.id] || [];
+            return reservationSessions.some(isSessionUpcoming);
+        });
+    };
 
     const handlePayReservation = (reservationId) => {
         navigate(`/payment?reservationId=${reservationId}`);
@@ -22,14 +35,21 @@ const DisplayMemberReservations = () => {
                 const response = await axios.get('http://34.30.198.59:8081/api/reservations/myReservations', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
+                const reservationsData = response.data;
 
-                const currentDate = new Date();
-                const filteredReservations = response.data.filter(reservation => {
-                    const sessionDate = new Date(reservation.date);
-                    return sessionDate > currentDate;
-                });
+                // Pour chaque réservation, on récupère les sessions
+                const sessionsData = {};
+                await Promise.all(reservationsData.map(async (reservation) => {
+                    const sessionResponse = await fetchSessions(reservation.id);
+                    sessionsData[reservation.id] = sessionResponse;
+                }));
 
-                setReservations(filteredReservations);
+                setReservations(reservationsData);
+                setSessions(sessionsData);
+
+                // Filtrer les réservations qui ont des sessions à venir
+                const upcomingReservations = filterReservationsWithUpcomingSessions(reservationsData, sessionsData);
+                setFilteredReservations(upcomingReservations);
             } catch (error) {
                 console.error('There was an error fetching the member reservations!', error);
             }
@@ -44,13 +64,10 @@ const DisplayMemberReservations = () => {
             const response = await axios.get(`http://34.30.198.59:8081/api/reservations/${reservationId}/sessions`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            console.log(`Sessions for reservation ${reservationId}:`, response.data); // Log sessions
-            setSessions(prevSessions => ({
-                ...prevSessions,
-                [reservationId]: response.data
-            }));
+            return response.data; // Retourne les sessions de la réservation
         } catch (error) {
             console.error('There was an error fetching the sessions!', error);
+            return [];
         }
     };
 
@@ -65,11 +82,17 @@ const DisplayMemberReservations = () => {
         }
     };
 
-    const filteredReservations = reservations.filter(reservation => {
-        if (filter === 'paid') return reservation.validate;
-        if (filter === 'unpaid') return !reservation.validate;
-        return true; // 'all' filter
-    });
+    // Gérer le filtre par état (toutes, payées, non payées)
+    const applyStateFilter = (reservations) => {
+        return reservations.filter(reservation => {
+            if (filter === 'paid') return reservation.validate;
+            if (filter === 'unpaid') return !reservation.validate;
+            return true;
+        });
+    };
+
+    // Appliquer les filtres
+    const displayedReservations = applyStateFilter(filteredReservations);
 
     return (
         <div className="container">
@@ -95,7 +118,7 @@ const DisplayMemberReservations = () => {
                 </button>
             </div>
             <ul className="list-group">
-                {filteredReservations.map(reservation => (
+                {displayedReservations.map(reservation => (
                     <li key={reservation.id} className="list-group-item">
                         <h2 style={{ color: reservation.validate ? 'green' : 'red' }}>N° de réservation: {reservation.id}</h2>
                         <p>Date de la commande: {reservation.orderedDate}</p>
