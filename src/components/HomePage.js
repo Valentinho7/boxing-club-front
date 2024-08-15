@@ -5,7 +5,7 @@ function HomePage() {
         <div style={{ position: 'relative', marginTop: '60px' }}> {/* Ajuste la marge supérieure si nécessaire pour la navbar */}
             {/* Image de fond */}
             <img 
-                src="../img/home-page-boxe.jpg" 
+                src="home-page-boxe.jpg" 
                 alt="Boxing background" 
                 style={{ 
                     width: '100%', 
