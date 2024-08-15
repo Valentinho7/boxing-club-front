@@ -3,7 +3,7 @@ import image from '../img/home-page-boxe.jpg';
 
 function HomePage() {
     return (
-        <div style={{ position: 'relative', marginTop: '60px' }}> 
+        <div style={{ position: 'relative', marginTop: '0px' }}> 
             <img 
                 src={image} 
                 alt="Boxing background" 
