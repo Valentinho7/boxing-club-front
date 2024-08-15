@@ -7,7 +7,8 @@ const DisplayMemberReservations = () => {
     const [sessions, setSessions] = useState({});
     const navigate = useNavigate();
     const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
-    
+    const currentDate = new Date();
+
 
 
     const handlePayReservation = (reservationId) => {
@@ -21,24 +22,14 @@ const DisplayMemberReservations = () => {
                 const response = await axios.get('http://34.30.198.59:8081/api/reservations/myReservations', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                const fetchedReservations = response.data;
 
-                // Filtrer les réservations pour ne montrer que celles qui ne sont pas encore passées
-                const filtered = [];
-                for (const reservation of fetchedReservations) {
-                    const fetchedSessions = await fetchSessions(reservation.id);
-                    const upcomingSessions = fetchedSessions.filter(session => new Date(session.date) >= currentDate);
+                const currentDate = new Date();
+                const filteredReservations = response.data.filter(reservation => {
+                    const sessionDate = new Date(reservation.date);
+                    return sessionDate > currentDate;
+                });
 
-                    if (upcomingSessions.length > 0) {
-                        filtered.push(reservation);
-                        setSessions(prevSessions => ({
-                            ...prevSessions,
-                            [reservation.id]: upcomingSessions
-                        }));
-                    }
-                }
-
-                setReservations(filtered);
+                setReservations(filteredReservations);
             } catch (error) {
                 console.error('There was an error fetching the member reservations!', error);
             }
