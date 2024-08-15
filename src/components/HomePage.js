@@ -71,11 +71,16 @@ function HomePage() {
             La boxe est le sport le plus complet.
         </h2>
         <p style={{ fontSize: '1em', color: '#555' }}>
-            Boxing Clyb rassemble une communauté de Membres qui ont voulu commencer la boxe dans des lieux de caractère, un environnement haut de gamme et une atmosphère bienveillante.
-        </p>
+        La boxe est bien plus qu'un simple sport; c'est une discipline qui engage à la fois le corps et l'esprit, offrant un équilibre parfait entre force physique et concentration mentale. En pratiquant la boxe, vous développez non seulement votre endurance, votre agilité, et votre force musculaire, mais vous améliorez également votre confiance en vous et votre capacité à gérer le stress.        </p>
         <p style={{ fontSize: '1em', color: '#555' }}>
-            Pour commencer la boxe à Paris, vous pouvez rejoindre Boxing Club à tout moment et débuter avec un cours de boxe sur sac, sans combat. Les cours de Cross Training vous permettront de vous remettre en forme.
-        </p>
+        Chez Boxing Club, nous croyons que la boxe est accessible à tous, quels que soient votre niveau de forme physique ou votre expérience. C'est pourquoi nous avons conçu nos espaces avec soin, en combinant des lieux de caractère, un environnement haut de gamme, et une atmosphère chaleureuse et bienveillante. Que vous soyez débutant ou boxeur confirmé, vous trouverez au sein de notre communauté un soutien et une motivation pour atteindre vos objectifs.        </p>
+        <p style={{ fontSize: '1em', color: '#555' }}>
+        Pour ceux qui souhaitent se lancer dans la boxe à Paris, Boxing Club offre une flexibilité totale. Vous pouvez rejoindre notre communauté à tout moment et commencer avec des cours adaptés à votre niveau. Nos cours de boxe sur sac sont parfaits pour débuter sans la pression d'un combat direct, tout en vous offrant une excellente opportunité de vous défouler et de travailler votre technique.</p>
+        <p style={{ fontSize: '1em', color: '#555' }}>
+        En parallèle, nos séances de Cross Training sont idéales pour ceux qui veulent se remettre en forme de manière intensive, en combinant des exercices cardiovasculaires et de renforcement musculaire. Grâce à la diversité de nos cours, vous pourrez diversifier votre entraînement et progresser à votre rythme, tout en profitant d'une ambiance conviviale et stimulante.</p>
+        <p style={{ fontSize: '1em', color: '#555' }}>
+        Rejoindre Boxing Club, c'est bien plus que pratiquer un sport; c'est intégrer une communauté passionnée et soudée, où chaque membre est encouragé à donner le meilleur de lui-même. N'attendez plus, commencez votre parcours vers une meilleure forme physique et mentale avec nous.</p>
+        
     </div>
     <img 
         src={newImage2} 
