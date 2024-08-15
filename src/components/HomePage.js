@@ -9,8 +9,8 @@ function HomePage() {
                 alt="Boxing background" 
                 style={{ 
                     width: '100%', 
-                    height: '100vh', /* Prend toute la hauteur de la fenêtre visible */
-                    objectFit: 'cover' /* Pour s'assurer que l'image ne soit pas déformée */
+                    height: '500px', /* Hauteur fixe, ajustez selon vos besoins */
+                    objectFit: 'cover' /* L'image remplit la largeur sans déformation */
                 }} 
             />
             
@@ -21,7 +21,8 @@ function HomePage() {
                 left: '20px', 
                 color: 'white', 
                 fontWeight: 'bold', 
-                textAlign: 'left' 
+                textAlign: 'left', 
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' /* Ajout d'une ombre pour améliorer la lisibilité du texte */
             }}>
                 <h1 style={{ fontSize: '4em', margin: 0 }}>La Boxe,<br />à l'état pur.</h1>
                 <p style={{ fontSize: '1.5em', marginTop: '10px' }}>
