@@ -7,7 +7,8 @@ const DisplayMemberReservations = () => {
     const [sessions, setSessions] = useState({});
     const navigate = useNavigate();
     const [filter, setFilter] = useState('all'); // État pour le filtre sélectionné
-    const currentDate = new Date(); // Définir la date actuelle ici pour l'utiliser dans toute la fonction
+    
+
 
     const handlePayReservation = (reservationId) => {
         navigate(`/payment?reservationId=${reservationId}`);
@@ -20,7 +21,24 @@ const DisplayMemberReservations = () => {
                 const response = await axios.get('http://34.30.198.59:8081/api/reservations/myReservations', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setReservations(response.data);
+                const fetchedReservations = response.data;
+
+                // Filtrer les réservations pour ne montrer que celles qui ne sont pas encore passées
+                const filtered = [];
+                for (const reservation of fetchedReservations) {
+                    const fetchedSessions = await fetchSessions(reservation.id);
+                    const upcomingSessions = fetchedSessions.filter(session => new Date(session.date) >= currentDate);
+
+                    if (upcomingSessions.length > 0) {
+                        filtered.push(reservation);
+                        setSessions(prevSessions => ({
+                            ...prevSessions,
+                            [reservation.id]: upcomingSessions
+                        }));
+                    }
+                }
+
+                setReservations(filtered);
             } catch (error) {
                 console.error('There was an error fetching the member reservations!', error);
             }
@@ -56,26 +74,10 @@ const DisplayMemberReservations = () => {
         }
     };
 
-    const areAllSessionsPassed = (reservationId) => {
-        const reservationSessions = sessions[reservationId];
-        if (!reservationSessions) return false; // Pas encore de sessions chargées
-
-        // Vérifier si toutes les sessions de la réservation sont passées
-        return reservationSessions.every(session => new Date(session.date) < currentDate);
-    };
-
     const filteredReservations = reservations.filter(reservation => {
-        // Filtrage selon l'état (paid, unpaid, all)
         if (filter === 'paid') return reservation.validate;
         if (filter === 'unpaid') return !reservation.validate;
-
         return true; // 'all' filter
-    }).filter(reservation => {
-        // Filtrer les réservations pour lesquelles toutes les sessions ne sont pas passées
-        if (sessions[reservation.id]) {
-            return !areAllSessionsPassed(reservation.id);
-        }
-        return true; // Si les sessions ne sont pas encore chargées, on affiche la réservation
     });
 
     return (
@@ -118,7 +120,7 @@ const DisplayMemberReservations = () => {
                             className="btn btn-success" 
                             onClick={() => handlePayReservation(reservation.id)}
                         >
-                            Payer ma réservation
+                            Payé ma réservation
                         </button>
                         )}
                         {sessions[reservation.id] && (
