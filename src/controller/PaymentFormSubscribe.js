@@ -59,7 +59,11 @@ class PaymentForm extends React.Component {
   handlePaymentValidation = (event) => {
     event.preventDefault();
     // Display success message
-    this.setSuccessMessage('Paiement validé avec succès.');
+    this.setSuccessMessage('Paiement validé avec succès. Redirection vers la page d\'accueil...');
+    // Redirect to home page after 3 seconds
+    setTimeout(() => {
+      this.props.navigate('/');
+    }, 3000);
   };
 
   render() {
