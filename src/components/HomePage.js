@@ -1,6 +1,7 @@
 import React from 'react';
 import backgroundImage from '../img/home-page-boxe.jpg';
-import newImage from '../img/mike.jpg'; // Ensure the path is correct
+import newImage from '../img/mike.jpg';
+import newImage2 from '../img/boxe.jpg';
 
 function HomePage() {
     return (
@@ -36,7 +37,7 @@ function HomePage() {
             </div>
 
             {/* New section below the background image */}
-            <div style={{ display: 'flex', alignItems: 'center', padding: '40px', backgroundColor: '#fff', border: '1px solid #000' }}>
+            <div style={{ display: 'flex', alignItems: 'center', padding: '40px', backgroundColor: '#fff' }}>
     <img 
         src={newImage} 
         alt="Mike Tyson" 
@@ -60,20 +61,32 @@ function HomePage() {
     </div>
 </div>
 
-{/* New text section */}
-<div style={{ padding: '20px', backgroundColor: '#fff', border: '1px solid #000', marginTop: '20px' }}>
-    <h1 style={{ fontSize: '2em', fontWeight: 'bold', color: '#333' }}>
-        Pourquoi vous devriez faire de la boxe ?
-    </h1>
-    <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#333' }}>
-        La boxe est le sport le plus complet.
-    </h2>
-    <p style={{ fontSize: '1em', color: '#555' }}>
-        Le Temple rassemble une communauté de Membres qui ont voulu commencer la boxe dans des lieux de caractère, un environnement haut de gamme et une atmosphère bienveillante.
-    </p>
-    <p style={{ fontSize: '1em', color: '#555' }}>
-        Pour commencer la boxe à Paris, vous pouvez rejoindre le Temple à tout moment et débuter avec un cours de boxe sur sac, sans combat. Les cours de Cross Training vous permettront de vous remettre en forme.
-    </p>
+{/* New text section with image */}
+<div style={{ display: 'flex', alignItems: 'flex-start', padding: '20px', backgroundColor: '#fff', marginTop: '20px', border: '1px solid #000' }}>
+    <img 
+        src={newImage2} 
+        alt="Boxing Image" 
+        style={{
+            width: '250px', /* Adjusted size */
+            height: 'auto',
+            borderRadius: '5px', /* Slight border radius */
+            marginRight: '30px' /* Space between image and text */
+        }}
+    />
+    <div>
+        <h1 style={{ fontSize: '2em', fontWeight: 'bold', color: '#333' }}>
+            Pourquoi vous devriez faire de la boxe ?
+        </h1>
+        <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#333' }}>
+            La boxe est le sport le plus complet.
+        </h2>
+        <p style={{ fontSize: '1em', color: '#555' }}>
+            Boxing Clyb rassemble une communauté de Membres qui ont voulu commencer la boxe dans des lieux de caractère, un environnement haut de gamme et une atmosphère bienveillante.
+        </p>
+        <p style={{ fontSize: '1em', color: '#555' }}>
+            Pour commencer la boxe à Paris, vous pouvez rejoindre Boxing Club à tout moment et débuter avec un cours de boxe sur sac, sans combat. Les cours de Cross Training vous permettront de vous remettre en forme.
+        </p>
+    </div>
 </div>
         </div>
     );
