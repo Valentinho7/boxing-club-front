@@ -48,9 +48,9 @@ function HomePage() {
                     }}
                 />
                 <div>
-                    <h2 style={{ margin: '0 0 10px 0' }}>Jérémy Blackwell</h2>
-                    <p style={{ fontStyle: 'italic', marginBottom: '5px' }}>Banquier Privé</p>
-                    <p>"Le Temple permet de rendre la boxe accessible à des débutants"</p>
+                    <h2 style={{ margin: '0 0 10px 0' }}>"Boxing Club permet de rendre la boxe accessible à des débutants"</h2>
+                    <p>Mike Tyson</p>
+                    <p style={{ fontStyle: 'italic', marginBottom: '5px' }}>Boxeur professionnel</p>
                 </div>
             </div>
         </div>
