@@ -10,7 +10,7 @@ const DisplayMember = () => {
         const fetchMembers = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://34.30.198.59:8081/api/members', {
+                const response = await axios.get('http://34.30.198.59:8081/api/member', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setMembers(response.data);
