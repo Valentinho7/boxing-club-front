@@ -43,8 +43,6 @@ function App() {
                     <Route path="/memberReservations" element={<DisplayMemberReservations />} />
                     <Route path="/payment" element={<PaymentForm />} />
                     <Route path="/history" element={<ReservationHistory />} />
-                    <Route path="/paymentSubscription" element={<PaymentFormSubscribe />} />
-                    <Route path="/member" element={<DisplayMember />} />
                 </Routes>
             </AuthProvider>
         </Router>
