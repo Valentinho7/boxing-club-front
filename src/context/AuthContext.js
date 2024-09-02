@@ -9,7 +9,7 @@ export const AuthContext = createContext({
   setRole: () => {}, 
 });
 
-export const AuthProvider = ({ children }) => {
+export const AuthProviderComponent = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
   const [role, setRole] = useState(''); // Ajoutez un état pour le rôle
   const navigate = useNavigate();
@@ -63,5 +63,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout,role, setRole, }}>
       {children}
     </AuthContext.Provider>
+  );
+};
+
+export const AuthProvider = (props) => {
+  return (
+    <AuthProviderComponent {...props} />
   );
 };
