@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext'; 
 import RegisterController from '../controller/RegisterController';
@@ -23,8 +23,8 @@ import DisplayMember from '../controller/DisplayMember.js';
 
 function App() {
     return (
-        <Router>
-            <AuthProvider>
+        <AuthProvider>
+            <Router>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -43,9 +43,11 @@ function App() {
                     <Route path="/memberReservations" element={<DisplayMemberReservations />} />
                     <Route path="/payment" element={<PaymentForm />} />
                     <Route path="/history" element={<ReservationHistory />} />
+                    <Route path="/paymentSubscription" element={<PaymentFormSubscribe />} />
+                    <Route path="/member" element={<DisplayMember />} />
                 </Routes>
-            </AuthProvider>
-        </Router>
+            </Router>
+        </AuthProvider>
     );
 }
 
