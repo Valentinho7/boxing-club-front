@@ -41,7 +41,7 @@ const DisplayMember = () => {
 
     return (
         <div className="container mt-4">
-            <h1>Liste des Membres</h1>
+            <h1 className="text-center">Liste des Membres</h1>
             {error && <p className="text-danger">{error}</p>}
             <ul className="list-group">
                 {members.map(member => (

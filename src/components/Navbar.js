@@ -127,14 +127,6 @@ function Navbar() {
                                         {renderAccountDropdownItems()}
                                     </ul>
                                 </li>
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Réservations
-                                    </a>
-                                    <ul className="dropdown-menu" aria-labelledby="reservationsDropdown">
-                                        {renderReservationsDropdownItems()}
-                                    </ul>
-                                </li>
                                 {role === 'Admin' && (
                                     <>
                                         <li className="nav-item dropdown">
@@ -164,9 +156,19 @@ function Navbar() {
                                     </>
                                 )}
                                 {role === 'Member' && (
+                                    <>
+                                        <li className="nav-item dropdown">
+                                            <a className="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Réservations
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="reservationsDropdown">
+                                                {renderReservationsDropdownItems()}
+                                            </ul>
+                                        </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/sessions/member">Réserver une séance</Link>
                                     </li>
+                                    </>
                                 )}
                             </>
                         )}
