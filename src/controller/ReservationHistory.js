@@ -126,7 +126,7 @@ const ReservationHistory = () => {
                                     <li key={session.id}>
                                         <h3>{session.name}</h3>
                                         <p>Durée: {session.durationInHours} heures</p>
-                                        <p>Type de séance: {session.sessionType.name}</p>
+                                        <p>Type de séssion: {session.sessionType.name}</p>
                                         <p>Date: {session.date}</p>
                                         <p>Heure: {session.hour}H00</p>
                                         <p>Coach: {session.coachName}</p>

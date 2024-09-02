@@ -106,7 +106,7 @@ const DisplaySessionType = () => {
 
   return (
     <div className="container">
-      <h1 style={{ textAlign: 'center' }}>Session Types</h1>
+      <h1 style={{ textAlign: 'center' }}>Type de session</h1>
       <div className="row">
         <div className="col-md-4">
           <div className="card mb-4">
@@ -118,13 +118,13 @@ const DisplaySessionType = () => {
                     value={newSessionTypeName}
                     onChange={(e) => setNewSessionTypeName(e.target.value)}
                     className="form-control mb-2"
-                    placeholder="New Session Type Name"
+                    placeholder="Nouveau nom de session"
                   />
                   <button
                     className="btn btn-success"
                     onClick={handleAddSaveClick}
                   >
-                    Save
+                    Enregistrer
                   </button>
                   <button
                     className="btn btn-secondary"
@@ -138,7 +138,7 @@ const DisplaySessionType = () => {
                   className="btn btn-primary"
                   onClick={() => setAddingNew(true)}
                 >
-                  Add
+                  Ajouter
                 </button>
               )}
             </div>
@@ -155,13 +155,13 @@ const DisplaySessionType = () => {
                       value={newName}
                       onChange={(e) => setNewName(e.target.value)}
                       className="form-control mb-2"
-                      placeholder="Edit Session Type Name"
+                      placeholder="Modifier le nom de la session"
                     />
                     <button
                       className="btn btn-success"
                       onClick={() => handleSaveClick(type.id)}
                     >
-                      Save
+                      Enregistrer
                     </button>
                     <button
                       className="btn btn-secondary"

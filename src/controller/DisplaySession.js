@@ -86,27 +86,27 @@ const DisplaySession = () => {
             <li key={session.id} className="list-group-item">
               {editingSession === session.id ? (
                 <div className="form-group">
-                  <input type="text" className="form-control mb-2" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
-                  <input type="text" className="form-control mb-2" name="durationInHours" value={formData.durationInHours} onChange={handleChange} placeholder="Duration in Hours" />
+                  <input type="text" className="form-control mb-2" name="name" value={formData.name} onChange={handleChange} placeholder="Nom" />
+                  <input type="text" className="form-control mb-2" name="durationInHours" value={formData.durationInHours} onChange={handleChange} placeholder="Durée en heure" />
                   <input type="text" className="form-control mb-2" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-                  <input type="text" className="form-control mb-2" name="nameSessionType" value={formData.nameSessionType} onChange={handleChange} placeholder="Session Type" />
+                  <input type="text" className="form-control mb-2" name="nameSessionType" value={formData.nameSessionType} onChange={handleChange} placeholder="Type de session" />
                   <input type="text" className="form-control mb-2" name="date" value={formData.date} onChange={handleChange} placeholder="Date" />
-                  <input type="text" className="form-control mb-2" name="hour" value={formData.hour} onChange={handleChange} placeholder="Hour" />
-                  <input type="text" className="form-control mb-2" name="coachName" value={formData.coachName} onChange={handleChange} placeholder="Coach Name" />
-                  <input type="text" className="form-control mb-2" name="maxPeople" value={formData.maxPeople} onChange={handleChange} placeholder="Max People" />
-                  <button className="btn btn-success me-2" onClick={handleSaveClick}>Save</button>
-                  <button className="btn btn-secondary" onClick={handleCancelClick}>Cancel</button>
+                  <input type="text" className="form-control mb-2" name="hour" value={formData.hour} onChange={handleChange} placeholder="Heure" />
+                  <input type="text" className="form-control mb-2" name="coachName" value={formData.coachName} onChange={handleChange} placeholder="Nom du coach" />
+                  <input type="text" className="form-control mb-2" name="maxPeople" value={formData.maxPeople} onChange={handleChange} placeholder="Capacité maximal" />
+                  <button className="btn btn-success me-2" onClick={handleSaveClick}>Enregistrer</button>
+                  <button className="btn btn-secondary" onClick={handleCancelClick}>Annuler</button>
                 </div>
               ) : (
                 <div>
                   <h2>{session.name}</h2>
-                  <p>Duration: {session.durationInHours} hours</p>
+                  <p>Durée: {session.durationInHours} heures</p>
                   <p>Description: {session.description}</p>
                   <p>Type: {session.nameSessionType}</p>
                   <p>Date: {session.date}</p>
-                  <p>Hour: {session.hour}H00</p>
+                  <p>Heure: {session.hour}H00</p>
                   <p>Coach: {session.coachName}</p>
-                  <p>Max People: {session.maxPeople}</p>
+                  <p>Capacité maximal: {session.maxPeople}</p>
                   <button className="btn btn-danger me-2" onClick={() => handleDeleteClick(session.id)}>Supprimer</button>
                   <button className="btn btn-primary" onClick={() => handleEditClick(session)}>Modifier</button>
                 </div>
@@ -114,7 +114,7 @@ const DisplaySession = () => {
             </li>
           ))
         ) : (
-          <p>No sessions available.</p>
+          <p>Aucune session disponible.</p>
         )}
       </ul>
     </div>

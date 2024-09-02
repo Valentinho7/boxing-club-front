@@ -106,12 +106,12 @@ const AddSessionController = () => {
         {({ errors, touched }) => (
           <Form>
             <div className="mb-3">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Nom</label>
               <Field name="name" type="text" className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')} />
               <ErrorMessage name="name" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <label htmlFor="durationInHours">Duration (in hours)</label>
+              <label htmlFor="durationInHours">Durée (heures)</label>
               <Field name="durationInHours" type="number" className={'form-control' + (errors.durationInHours && touched.durationInHours ? ' is-invalid' : '')} />
               <ErrorMessage name="durationInHours" component="div" className="invalid-feedback" />
             </div>
@@ -121,9 +121,9 @@ const AddSessionController = () => {
               <ErrorMessage name="description" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <label htmlFor="nameSessionType">Session Type</label>
+              <label htmlFor="nameSessionType">Type de session</label>
               <Field as="select" name="nameSessionType" className={'form-control' + (errors.nameSessionType && touched.nameSessionType ? ' is-invalid' : '')}>
-                <option value="">Select a session type</option>
+                <option value="">Selectionner une session</option>
                 {sessionTypes.map((type, index) => (
                   <option key={index} value={type.name}>{type.name}</option>
                 ))}
@@ -163,22 +163,22 @@ const AddSessionController = () => {
               <ErrorMessage name="date" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <label htmlFor="hour">Hour</label>
+              <label htmlFor="hour">Heure</label>
               <Field name="hour" type="number" className={'form-control' + (errors.hour && touched.hour ? ' is-invalid' : '')} />
               <ErrorMessage name="hour" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <label htmlFor="coachName">Coach Name</label>
+              <label htmlFor="coachName">Nom du coach</label>
               <Field name="coachName" type="text" className={'form-control' + (errors.coachName && touched.coachName ? ' is-invalid' : '')} />
               <ErrorMessage name="coachName" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <label htmlFor="maxPeople">Max People</label>
+              <label htmlFor="maxPeople">Capacité maximal</label>
               <Field name="maxPeople" type="number" className={'form-control' + (errors.maxPeople && touched.maxPeople ? ' is-invalid' : '')} />
               <ErrorMessage name="maxPeople" component="div" className="invalid-feedback" />
             </div>
             <div className="mb-3">
-              <button type="submit" className="btn btn-primary">Add Session</button>
+              <button type="submit" className="btn btn-primary">Ajouter</button>
             </div>
           </Form>
         )}

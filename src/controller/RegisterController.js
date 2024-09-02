@@ -4,13 +4,13 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-    firstname: Yup.string().required('First Name is required'),
-    lastname: Yup.string().required('Last Name is required'),
-    birthdate: Yup.date().required('Birthdate is required'),
-    email: Yup.string().email('Email is invalid').required('Email is required'),
-    phoneNumber: Yup.string().required('Phone Number is required'),
-    address: Yup.string().required('Address is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    firstname: Yup.string().required('Prénom requis'),
+    lastname: Yup.string().required('Nom requis'),
+    birthdate: Yup.date().required('Date de naissance requise'),
+    email: Yup.string().email('Email invalide').required('Email requis'),
+    phoneNumber: Yup.string().required('Numéro de téléphone requis'),
+    address: Yup.string().required('Adresse requise'),
+    password: Yup.string().min(6, 'Le mot de passe doit contenir au minimum 6 caractères').required('Mot de passe requis'),
 });
 
 function RegisterController() {
@@ -74,17 +74,17 @@ function RegisterController() {
             {({ errors, touched }) => (
                 <Form>
                     <div className="mb-3">
-                        <label htmlFor="firstname">First Name</label>
+                        <label htmlFor="firstname">Prénom</label>
                         <Field name="firstname" type="text" className={'form-control' + (errors.firstname && touched.firstname ? ' is-invalid' : '')} />
                         <ErrorMessage name="firstname" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="lastname">Last Name</label>
+                        <label htmlFor="lastname">Nom</label>
                         <Field name="lastname" type="text" className={'form-control' + (errors.lastname && touched.lastname ? ' is-invalid' : '')} />
                         <ErrorMessage name="lastname" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="birthdate">Birthdate</label>
+                        <label htmlFor="birthdate">Date de naissance</label>
                         <Field name="birthdate" type="date" className={'form-control' + (errors.birthdate && touched.birthdate ? ' is-invalid' : '')} />
                         <ErrorMessage name="birthdate" component="div" className="invalid-feedback" />
                     </div>
@@ -94,22 +94,22 @@ function RegisterController() {
                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <label htmlFor="phoneNumber">Numéro de téléphone</label>
                         <Field name="phoneNumber" type="text" className={'form-control' + (errors.phoneNumber && touched.phoneNumber ? ' is-invalid' : '')} />
                         <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="address">Address</label>
+                        <label htmlFor="address">Adresse postale</label>
                         <Field name="address" type="text" className={'form-control' + (errors.address && touched.address ? ' is-invalid' : '')} />
                         <ErrorMessage name="address" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mot de passe</label>
                         <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                         <ErrorMessage name="password" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">Register</button>
+                        <button type="submit" className="btn btn-primary">Enregistrer</button>
                     </div>
                 </Form>
             )}

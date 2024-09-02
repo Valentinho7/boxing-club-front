@@ -4,8 +4,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().email('Email is invalid').required('Email is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    email: Yup.string().email('Email invalide').required('Email requis'),
+    password: Yup.string().min(6, 'Le mot de passe doit contenir au minimum 6 caractères').required('Mot de passe requis'),
 });
 
 function RegisterAdminController() {
@@ -34,7 +34,7 @@ function RegisterAdminController() {
             if (ok) {
                 // Handle success
                 setErrorMessage(null);
-                setSuccessMessage('Admin registered successfully.');
+                setSuccessMessage('Administrateur enregistré avec succès.');
                 resetForm(); // Reset the form after successful submission
             } else {
                 // Handle error
@@ -67,7 +67,7 @@ function RegisterAdminController() {
                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Mot de passe</label>
                         <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
                         <ErrorMessage name="password" component="div" className="invalid-feedback" />
                     </div>

@@ -84,6 +84,18 @@ function Navbar() {
         return null;
     };
 
+    const renderMemberDropdownItems = () => {
+        if (role === 'Admin') {
+            return (
+                <>
+                    <li><Link className="dropdown-item" to="/member">Liste des membres</Link></li>
+                </>
+            );
+        }
+
+        return null;
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-white bg-white">
             <div className="container-fluid">
@@ -139,6 +151,14 @@ function Navbar() {
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="sessionTypeDropdown">
                                                 {renderSessionTypeDropdownItems()}
+                                            </ul>
+                                        </li>
+                                        <li className="nav-item dropdown">
+                                            <a className="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Membre
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="memberDropdown">
+                                                {renderMemberDropdownItems()}
                                             </ul>
                                         </li>
                                     </>

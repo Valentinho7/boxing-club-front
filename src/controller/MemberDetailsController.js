@@ -42,7 +42,7 @@ function MemberDetails() {
   };
 
   if (!memberData) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   return (

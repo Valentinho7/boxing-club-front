@@ -60,13 +60,13 @@ function DisplaySessionMember() {
                 {sessions.filter(session => isSessionInFuture(session.date)).map(session => (
                     <li key={session.id} className="list-group-item">
                         <h2>{session.name}</h2>
-                        <p>Duration: {session.durationInHours} hours</p>
+                        <p>Durée: {session.durationInHours} hours</p>
                         <p>Description: {session.description}</p>
                         <p>Type: {session.nameSessionType}</p>
                         <p>Date: {session.date}</p>
-                        <p>Hour: {session.hour}H00</p>
+                        <p>Heure: {session.hour}H00</p>
                         <p>Coach: {session.coachName}</p>
-                        <p>Max People: {session.maxPeople}</p>
+                        <p>Capacité maximal: {session.maxPeople}</p>
                         <button onClick={() => addToCart(session.id)} className="btn btn-primary">Ajouter au panier</button>
                     </li>
                 ))}

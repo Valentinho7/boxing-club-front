@@ -19,6 +19,7 @@ import DisplayMemberReservations from '../controller/DisplayMemberReservations.j
 import PaymentForm from '../controller/PaymentForm.js';
 import ReservationHistory from '../controller/ReservationHistory.js';
 import PaymentFormSubscribe from '../controller/PaymentFormSubscribe.js';
+import DisplayMember from '../controller/DisplayMember.js';
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/payment" element={<PaymentForm />} />
                     <Route path="/history" element={<ReservationHistory />} />
                     <Route path="/paymentSubscription" element={<PaymentFormSubscribe />} />
+                    <Route path="/member" element={<DisplayMember />} />
                 </Routes>
             </Router>
         </AuthProvider>
